@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define rep(i,n) for(int i=0;i<n;++i)
+const int inf = INT_MAX;
+using ll = long long;
+//fixed << setprecision(5)
+
+int main(){
+    int a,b,c;
+    cin >> a >> b >> c;
+    for(int i=a;i<=b;i++){
+        if(i%c==0){
+            cout << i << endl;
+            return 0;
+        }
+    }
+    cout << -1 << endl;
+    return 0;
+}

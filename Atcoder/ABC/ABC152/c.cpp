@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define rep(i,n) for(int i=0;i<n;++i)
+const int inf = INT_MAX;
+using ll = long long;
+using P = pair<int,int>;
+using Graph = vector<vector<int>>;
+
+vector<int>dxs={1,0,-1,0};
+vector<int>dys={0,1,0,-1};
+
+//fixed << setprecision(10)
+
+int main(){
+    int n;
+    cin >> n;
+    vector<int>P(n);
+    rep(i,n)cin >> P[i];
+    int ans=0;
+    int min_n=inf;
+    rep(i,n){
+        min_n=min(min_n,P[i]);
+        if(min_n==P[i])ans++;
+    }
+    cout << ans << endl;
+    return 0;
+}
