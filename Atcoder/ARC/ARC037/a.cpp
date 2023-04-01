@@ -13,21 +13,12 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 
 int main(){
-    int a,b,c,k;
-    cin >> a >> b >> c >> k;
-    int cnt=0;
-    while(a>=b){
-        b*=2;
-        cnt++;
-    }
-    while(b>=c){
-        c*=2;
-        cnt++;
-    }
-    if(cnt<=k){
-        cout << "Yes" << endl;
-    }else{
-        cout << "No" << endl;
-    }
+    int n;
+    cin >> n;
+    vector<int>m(n);
+    rep(i,n)cin >> m[i];
+    ll ans=0;
+    rep(i,n)ans+=max(0,80-m[i]);
+    cout << ans << endl;
     return 0;
 }
