@@ -8,6 +8,7 @@ using ll = long long;
 int main(){
     int a,b;
     cin >> a >> b;
-    cout << min(abs(a-b),abs(10-a+b));
+    if(a<b)swap(a,b);
+    cout << min(abs(a-b),abs(10-a+b)) << endl;;
     return 0;
 }
