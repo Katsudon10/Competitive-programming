@@ -8,7 +8,18 @@ using ll = long long;
 int main(){
     int n,a,b;
     cin >> n >> a >> b;
-    vector<int>P(n);
-    
+    int ca=0,cb=0,cc=0;
+    rep(i,n){
+        int p;
+        cin >> p;
+        if(p<=a){
+            ca++;
+        }else if(p<=b){
+            cb++;
+        }else{
+            cc++;
+        }
+    }
+    cout << min(ca,min(cb,cc)) << endl;
     return 0;
 }
