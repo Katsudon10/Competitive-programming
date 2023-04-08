@@ -15,6 +15,6 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n;
     cin >> n;
-    cout << n+5 << endl;
+    cout << n << endl;
     return 0;
 }
