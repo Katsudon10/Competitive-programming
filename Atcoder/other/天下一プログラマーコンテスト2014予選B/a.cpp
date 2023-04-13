@@ -15,6 +15,8 @@ vector<int>dys={0,1,0,-1};
 int main(){
     string s;
     cin >> s;
-    
+    int cnt=s.find("HAGIYA");
+    s.replace(cnt,6,"HAGIXILE");
+    cout << s << endl;
     return 0;
 }
