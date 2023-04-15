@@ -17,15 +17,11 @@ int main(){
     cin >> a >> b;
     ll cnt=0;
     if(a<b)swap(a,b);
-    while(a!=b){
+    while(b!=0){
         cnt+=a/b;
         a%=b;
         if(a<b)swap(a,b);
-        if(b==1){
-            cnt+=a-1;
-            break;
-        }
     }
-    cout << cnt << endl;
+    cout << cnt-1 << endl;
     return 0;
 }
