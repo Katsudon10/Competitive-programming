@@ -15,6 +15,10 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n;
     cin >> n;
-    cout << min(100*(n/10)+15*(n%10),15*n) << endl;
+    ll ans=0;
+    ans+=n/10*100;
+    n%=10;
+    ans+=min(n*15,100);
+    cout << ans << endl;
     return 0;
 }
