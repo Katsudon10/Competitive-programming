@@ -1,9 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define rep(i,n) for(int i=0;i<n;++i)
+#define ALL(a)  (a).begin(),(a).end()
 const int inf = INT_MAX;
 using ll = long long;
-//fixed << setprecision(5)
+using P = pair<int,int>;
+using Graph = vector<vector<int>>;
+
+vector<int>dxs={1,0,-1,0};
+vector<int>dys={0,1,0,-1};
+
+//fixed << setprecision(10)
 
 int main(){
     int h,w;
@@ -11,25 +18,18 @@ int main(){
     vector<string>s(h),t(h);
     rep(i,h) cin >> s[i];
     rep(i,h) cin >> t[i];
-    vector<int>sns(w),tnt(w),snn(w),tnn(w);
-    rep(i,h){
-        rep(j,w){
-            if(s[i][j]=='.') sns[j]++;
-            if(t[i][j]=='.') tnt[j]++;
-            if(s[i][j]=='#') snn[j]++;
-            if(t[i][j]=='#') tnn[j]++;
-        }
+    
+    vector<string>st(w),tt(w);
+    rep(i,h)rep(j,w)st[j][i]=s[i][j];
+    rep(i,h)rep(j,w)tt[j][i]=t[i][j];
+
+    sort(ALL(st));
+    sort(ALL(tt));
+
+    if(st==tt){
+        cout << "Yes" << endl;
+    }else{
+        cout << "No" << endl;
     }
-    sort(sns.begin(),sns.end());
-    sort(tnt.begin(),tnt.end());
-    sort(snn.begin(),snn.end());
-    sort(tnn.begin(),tnn.end());
-    rep(i,w){
-        if(sns[i]!=tnt[i] || snn[i]!=tnn[i]){
-            cout << "No" << endl;
-            return 0;
-        }
-    }
-    cout << "Yes" << endl;
     return 0;
 }
