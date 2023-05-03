@@ -15,14 +15,16 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n;
     cin >> n;
-    vector<pair<string,int>>P(n),T(n);
-    rep(i,n)cin >> P[i].first >> P[i].second;
-    T=P;
-    sort(ALL(P));
-
+    vector<pair<pair<string,int>,int>>p(n);
     rep(i,n){
-        cout << T.find_if(P[i]) << endl;
+        string s;
+        int a;
+        cin >> s >> a;
+        p[i]=make_pair(make_pair(s,-a),i);
     }
-
+    sort(ALL(p));
+    rep(i,n){
+        cout << p[i].second+1 << endl;
+    }
     return 0;
 }
