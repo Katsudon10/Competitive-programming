@@ -13,8 +13,8 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 ll Power(ll a,ll b){
     ll p=a,ans=1;
-    rep(i,60){
-        ll w=(1LL<<i);
+    rep(i,30){
+        ll w=(1<<i);
         if((b/w)%2==1){
             ans=ans*p%1000000007;
         }
