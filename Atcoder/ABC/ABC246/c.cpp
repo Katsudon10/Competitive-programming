@@ -16,5 +16,25 @@ int main(){
     cin >> n >> k >> x;
     vector<int>A(n);
     rep(i,n)cin >> A[i];
+    vector<int>B(n);
+    ll cnt=0,sum=0;
+    rep(i,n){
+        cnt+=A[i]/x;
+        B[i]=A[i]%x;
+        sum+=A[i];
+    }
+    
+    if(cnt>=k){
+        sum-=(ll)k*x;
+    }else{
+        sum-=(ll)cnt*x;
+        k-=cnt;
+        n=min(n,k);
+        sort(B.rbegin(),B.rend());
+        rep(i,n){
+            sum-=B[i];
+        }
+    }
+    cout << sum << endl;
     return 0;
 }
