@@ -17,11 +17,11 @@ int main(){
     cin >> n >> k;
     vector<int>H(n);
     rep(i,n)cin >> H[i];
-    int ans=inf;
     sort(ALL(H));
-    rep(i,n-1){
-        int t=lower_bound(H.begin()+i+1,H.end(),H[i])-H.begin();
-        ans=min(ans,abs(H[i]-H[t]));
+    int ans=inf;
+    rep(i,n-k+1){
+        int t=H[i+k-1]-H[i];
+        if(t<ans)ans=t;
     }
     cout << ans << endl;
     return 0;
