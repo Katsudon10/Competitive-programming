@@ -13,6 +13,12 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 
 int main(){
+    int n;
+    cin >> n;
+    vector<int>x(n),y(n);
+    rep(i,n)cin >> x[i] >> y[i];
+    string s;
+    cin >> s;
     
     return 0;
 }
