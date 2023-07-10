@@ -16,18 +16,23 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,k;
     cin >> n >> k;
-    vector<int>A(n),B(n);
-    rep(i,n)cin >> A[i] >> B[i];
-    P p;
-    rep(i,n)p.emplace_back(A[i],B[i]);
+    vector<P>p(n);
+    rep(i,n)cin >> p[i].first >> p[i].second;
     sort(ALL(p));
     ll cnt=0;
 
-    rep(i,n)cnt+=B[i];
-    while (true)
-    {
-        
+    rep(i,n)cnt+=p[i].second;
+    if(cnt<=k){
+        cout << 1 << endl;
+    }else{
+        rep(i,n){
+            cnt-=p[i].second;
+            if(cnt<=k){
+                cout << p[i].first+1 << endl;
+                return 0;
+            }
+        }
+        cout << p.back().second+1 << endl;
     }
-    
     return 0;
 }
