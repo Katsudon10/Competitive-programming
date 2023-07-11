@@ -11,11 +11,18 @@ vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
-//A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    double s;
+    string s;
     cin >> s;
-    cout << fixed << setprecision(10) << 50/s << endl;
+    ll ans=0;
+    rep(i,s.size()){
+        if(i%2==0){
+            ans+=s[i]-'0';
+        }else{
+            ans-=s[i]-'0';
+        }
+    }
+    cout << ans << endl;
     return 0;
 }
