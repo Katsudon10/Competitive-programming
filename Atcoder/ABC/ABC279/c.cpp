@@ -20,12 +20,12 @@ int main(){
     rep(i,h) cin >> t[i];
     
     vector<string>st(w),tt(w);
-    rep(i,h)rep(j,w)st[j][i]=s[i][j];
-    rep(i,h)rep(j,w)tt[j][i]=t[i][j];
-
+    rep(i,h)rep(j,w){
+        st[j].push_back(s[i][j]);
+        tt[j].push_back(t[i][j]);
+    }
     sort(ALL(st));
     sort(ALL(tt));
-
     if(st==tt){
         cout << "Yes" << endl;
     }else{
