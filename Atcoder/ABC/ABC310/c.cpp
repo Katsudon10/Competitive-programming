@@ -19,10 +19,15 @@ int main(){
     vector<string>S(n);
     rep(i,n)cin >> S[i];
     set<string>st;
-    rep(i,n)st.insert(S[i]);
+    ll ans=0;
     rep(i,n){
-        
+        if(!st.count(S[i])){
+            ans++;
+            st.insert(S[i]);
+            reverse(ALL(S[i]));
+            st.insert(S[i]);
+        }
     }
-    cout << 2*n-st.size() << endl;
+    cout << ans << endl;
     return 0;
 }
