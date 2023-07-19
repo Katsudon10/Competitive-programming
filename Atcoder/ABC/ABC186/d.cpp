@@ -15,6 +15,7 @@ vector<int>dys={0,1,0,-1};
 
 int main(){
     int n;
+    cin >> n;
     vector<int>A(n);
     rep(i,n)cin >> A[i];
     sort(ALL(A));
