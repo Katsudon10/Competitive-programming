@@ -4,47 +4,27 @@ using namespace std;
 const int inf = INT_MAX;
  
 int main(){
-    long int n,k;
+    int n,k;
     cin >> n >> k;
-    vector<long int>a(n),b(n),c(n);
+    vector<int>a(n),b(n),c(n);
     rep(i,n) cin >> a[i];
     rep(i,n) cin >> b[i];
-    bool flag=true;
-    for(int i=0;i<n-1;i++){
-        if(i==0){
-            if(abs(a[i]-a[i+1])<=k){
-                c[i]=a[i];
-            }else if(abs(a[i]-b[i+1])<=k){
-                c[i]=a[i];
-            }else if(abs(b[i]-a[i+1])<=k){
-                c[i]=b[i];
-            }else if(abs(b[i]-b[i+1])<=k){
-                c[i]=b[i];
-            }else{
-                flag=false;
-            }
-        }else{
-            if(abs(c[i-1]-a[i]<=k) && abs(a[i]-a[i+1])<=k){
-                c[i]=a[i];
-            }else if(abs(c[i-1]-a[i]<=k) && abs(a[i]-b[i+1])<=k){
-                c[i]=a[i];
-            }else if(abs(c[i-1]-b[i]<=k) && abs(b[i]-a[i+1])<=k){
-                c[i]=b[i];
-            }else if(abs(c[i-1]-b[i]<=k) && abs(b[i]-b[i+1])<=k){
-                c[i]=b[i];
-            }else{
-                flag=false;
-            }
+
+    vector<vector<bool>>dp(n,vector<bool>(2,false));
+    dp[0][0]=true;
+    dp[0][1]=true;
+    for(int i=1;i<n;i++){
+        if(dp[i-1][0]){
+            if(abs(a[i-1]-a[i])<=k)dp[i][0]=true;
+            if(abs(a[i-1]-b[i])<=k)dp[i][1]=true;
+        }
+        if(dp[i-1][1]){
+            if(abs(b[i-1]-a[i])<=k)dp[i][0]=true;
+            if(abs(b[i-1]-b[i])<=k)dp[i][1]=true;
         }
     }
-    if(abs(c[n-1]-a[n-1])<=k){
-        c[n-1]=a[n-1];
-    }else if(abs(c[n-1]-b[n-1])<=k){
-        c[n-1]=b[n-1];
-    }else{
-        flag=false;
-    }
-    if(flag){
+
+    if(dp[n-1][0] || dp[n-1][1]){
         cout << "Yes" << endl;
     }else{
         cout << "No" << endl;
