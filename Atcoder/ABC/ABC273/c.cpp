@@ -15,8 +15,21 @@ vector<int>dys={0,1,0,-1};
 
 int main(){
     int n;
-    vector<int>A(n);
-    rep(i,n)cin >> A[i];
-    
+    cin >> n;
+    map<int,int>mp;
+    rep(i,n){
+        int a;
+        cin >> a;
+        mp[a]++;
+    }
+
+    reverse(ALL(mp));
+    for(auto p:mp){
+        cout << p.second << endl;
+    }
+
+    rep(i,n-mp.size()){
+        cout << 0 << endl;
+    }
     return 0;
 }
