@@ -15,9 +15,10 @@ vector<int>dys={0,1,0,-1};
 int main(){
     string s;
     cin >> s;
-    int ans=0;
-    for(int i=0;i<s.size();i+=2){
-        s=s.substr(0,s.size()-2);
+    int n=s.size();
+    rep(i,n){
+        s=s.substr(0,s.size()-1);
+        if(s.size()%2!=0)continue;
         string str1=s.substr(0,s.size()/2);
         string str2=s.substr(s.size()/2,s.size()/2);
         if(str1==str2){
