@@ -15,6 +15,15 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,y;
     cin >> n >> y;
-    
+    rep(i,n+1){
+        rep(j,n+1){
+            int m=n-i-j;
+            if(m>=0 && i*10000+j*5000+m*1000==y){
+                cout << i << ' ' << j << ' ' << m << endl;
+                return 0;
+            }
+        }
+    }
+    cout << -1 << ' ' << -1 << ' ' << -1 << endl;
     return 0;
 }
