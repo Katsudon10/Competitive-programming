@@ -16,38 +16,20 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,m;
     cin >> n >> m;
-    Graph G(n);
+    
+    vector<bool>flag(n,false);
+
     rep(i,m){
         int a,b;
         cin >> a >> b;
         a--;b--;
-        G[a].push_back(b);
+        flag[b]=true;
     }
 
-    rep(i,n){
-        int cnt=0;
-        queue<int>que;
-        vector<bool>seen(n,false);
-        que.push(i);
-        seen[i]=true;
-        while(!que.empty()){
-            int q=que.front();
-            seen[q]=true;
-            cnt++;
-            for(int v:G[q]){
-                if(!seen[v])que.push(v);
-                else{
-                    cout << -1 << endl;
-                    return 0;
-                } 
-            }
-            que.pop();
-        }
-        if(cnt==n){
-            cout << i+1 << endl;
-            return 0;
-        }
-    }
-    cout << -1 << endl;
+    vector<int>winner;
+    rep(i,n)if(!flag[i])winner.push_back(i+1);
+    
+    if(winner.size()==1)cout << winner[0] << endl;
+    else cout << -1 << endl;
     return 0;
 }
