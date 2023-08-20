@@ -18,10 +18,10 @@ int main(){
     cin >> n;
     vector<int>A(n);
     rep(i,n)cin >> A[i];
-    vector<int>ans(2*n+2,0);
+    vector<int>ans(2*n+1,0);
     rep(i,n){
         ans[2*i+1]=ans[A[i]-1]+1;
-        ans[2*i+2]=ans[A[i]-1]+2;
+        ans[2*i+2]=ans[A[i]-1]+1;
     }
     rep(i,2*n+1){
         cout << ans[i] << endl; 
