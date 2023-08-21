@@ -14,6 +14,22 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    
+    int n,m;
+    cin >> n >> m;
+    string s;
+    cin >> s;
+    vector<int>c(n);
+    rep(i,n)cin >> c[i];
+    vector<vector<int>>p(m);
+    rep(i,n)p[c[i]-1].push_back(i);
+
+    string ans=s;
+    rep(i,m){
+        int l=p[i].size();
+        rep(j,l){
+            ans[p[i][(j+1)%l]]=s[p[i][j]];
+        }
+    }
+    cout << ans << endl;
     return 0;
 }
