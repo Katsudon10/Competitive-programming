@@ -18,10 +18,13 @@ int main(){
     cin >> n >> k;
     vector<int>p(n);
     rep(i,n)cin >> p[i];
-    for(int i=k;i<=n;i++){
-        vector<int>t=slice(p,0,i);
-        sort(t.rbegin(),t.rbegin()+i);
-        cout << t[k-1] << endl;
+    
+    priority_queue<int,vector<int>,greater<int>>q;
+    rep(i,k-1)q.push(p[i]);
+    for(int i=k-1;i<n;i++){
+        q.push(p[i]);
+        while(q.size()>k)q.pop();
+        cout << q.top() << endl;
     }
     return 0;
 }
