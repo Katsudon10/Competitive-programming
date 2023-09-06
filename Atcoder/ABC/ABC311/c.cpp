@@ -31,30 +31,25 @@ bool dfs(Graph &G,int n,vector<bool> &seen){
 int main(){
     int n;
     cin >> n;
-    Graph G(n+1);
-    for(int i=1;i<=n;i++){
-        int a;
-        cin >> a;
-        G[i].push_back(a);
+    vector<int>a(n+1);
+    rep(i,n)cin >> a[i+1];
+    vector<int>id(n+1);
+    int k=1;
+    int v=1;
+    while(id[v]==0){
+        id[v]=k;
+        k++;
+        v=a[v];
     }
-
-    vector<bool>seen(n+1,false);
-    for(int i=1;i<=n;i++){
-        if(!seen[i]){
-            bool flag=dfs(G,i,seen);
-            cout << flag << endl;
-            if(flag)break;
-        }
-    }
-
 
     vector<int>ans;
-    while(!st.empty()){
-        ans.push_back(st.top());
-        st.pop();
+    int l=k-id[v];
+    rep(i,l){
+        ans.push_back(v);
+        v=a[v];
     }
-    reverse(ALL(ans));
     cout << ans.size() << endl;
     for(int v:ans)cout << v << ' ';
+    cout << endl;
     return 0;
 }
