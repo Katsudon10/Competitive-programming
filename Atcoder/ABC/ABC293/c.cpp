@@ -12,20 +12,27 @@ vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 
-int main(){
-    int h,w;
-    cin >> h >> w;
-    Graph G(h,vector<int>(w));
-    rep(i,h)rep(j,w)cin >> G[i][j];
-    vector<vector<int>>dp(h,vector<int>(w,0));
-    dp[0][0]=1;
-    vector<set<int>>s;
-    s[0].insert(G[0][0]);
-    rep(i,h){
-        rep(j,w){
-            if()
-        }
-    }
+int h,w,ans;
+vector<vector<int>>a;
 
+void dfs(int i,int j,set<int>s){
+    if(s.count(a[i][j]))return;
+    s.insert(a[i][j]);
+    if(i==h-1 && j==w-1){
+        ans++;
+        return;
+    }
+    if(i+1<h)dfs(i+1,j,s);
+    if(j+1<w)dfs(i,j+1,s);
+}
+
+int main(){
+    cin >> h >> w;
+    a=vector<vector<int>>(h,vector<int>(w));
+    rep(i,h)rep(j,w)cin >> a[i][j];
+    
+    dfs(0,0,set<int>());
+
+    cout << ans << endl;
     return 0;
 }
