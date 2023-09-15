@@ -16,12 +16,15 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n;
     cin >> n;
-    vector<double>A(n);
-    rep(i,n){
-        ll a,b;
-        cin >> a >> b;
-        A[i]=a/(ll)(a+b);
-    }
-    
+    vector<int>a(n),b(n);
+    rep(i,n)cin >> a[i] >> b[i];
+    rep(i,n)b[i]+=a[i];
+    vector<int>ans(n);
+    rep(i,n)ans[i]=i;
+    stable_sort(ans.begin(),ans.end(),[&](int i,int j){
+        return (ll)a[i]*b[j] > (ll)a[j]*b[i];
+    });
+    rep(i,n)cout << ans[i]+1 << ' ';
+    cout << endl;
     return 0;
 }
