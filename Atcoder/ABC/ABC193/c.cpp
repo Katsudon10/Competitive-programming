@@ -16,6 +16,14 @@ vector<int>dys={0,1,0,-1};
 int main(){
     ll n;
     cin >> n;
-    
+    set<ll>s;
+    for(ll a=2;a*a<=n;a++){
+        ll x=a*a;
+        while(x<=n){
+            s.insert(x);
+            x*=a;
+        }
+    }
+    cout << n-s.size() << endl;
     return 0;
 }
