@@ -20,13 +20,13 @@ int main(){
     rep(i,n)cin >> a[i];
     rep(i,m)cin >> b[i];
     sort(ALL(b));
-    vector<ll>tb(m);
-    tb[0]=b[0];
-    for(int i=1;i<m;i++)tb[i]=tb[i-1]+b[i];
+    vector<ll>tb(m+1);
+    
+    for(int i=0;i<m;i++)tb[i+1]=tb[i]+b[i];
     ll ans=0;
     rep(i,n){
-        int it=upper_bound(ALL(b),p-a[i])-b.begin();
-        ans+=tb[it-1]+(ll)(it)*a[i]+(ll)(m-it)*p;
+        int it=lower_bound(ALL(b),p-a[i])-b.begin();
+        ans+=tb[it]+(ll)it*a[i]+(ll)(m-it)*p;
     }
     cout << ans << endl;
     return 0;
