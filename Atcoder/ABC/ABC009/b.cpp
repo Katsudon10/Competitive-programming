@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define rep(i,n) for(int i=0;i<n;++i)
+#define ALL(a)  (a).begin(),(a).end()
+const int inf = INT_MAX;
+using ll = long long;
+using P = pair<int,int>;
+using Graph = vector<vector<int>>;
+
+vector<int>dxs={1,0,-1,0};
+vector<int>dys={0,1,0,-1};
+
+//fixed << setprecision(10)
+//A[i].erase(unique(ALL(A[i])),A[i].end());
+
+int main(){
+    int n;
+    cin >> n;
+    vector<int>a;
+    set<int>st;
+    rep(i,n){
+        int b;
+        cin >> b;
+        if(!st.count(b)){
+            a.push_back(b);
+            st.insert(b);
+        }
+    }
+    sort(ALL(a));
+    cout << a[a.size()-2] << endl;
+    return 0;
+}
