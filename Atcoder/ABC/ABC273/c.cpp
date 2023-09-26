@@ -23,9 +23,8 @@ int main(){
         mp[a]++;
     }
 
-    reverse(ALL(mp));
-    for(auto p:mp){
-        cout << p.second << endl;
+    for(auto it=mp.rbegin();it!=mp.rend();it++){
+        cout << it->second << endl;
     }
 
     rep(i,n-mp.size()){
