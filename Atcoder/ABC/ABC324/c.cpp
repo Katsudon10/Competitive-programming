@@ -13,29 +13,43 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
-string ts;
-bool cheack(string s){
-    if(s==ts)return true;
-    else if(abs(ts.size()-s.size())>1){
-        return false;
-    }else{
-        
+int ham(string &s,string &t){
+    if(s.size()!=t.size())return 999;
+    int cnt=0;
+    rep(i,s.size())if(s[i]!=t[i])cnt++;
+    return cnt;
+}
+
+bool f(string &s,string &t){
+    if(s.size()!=t.size()+1)return false;
+    int si=0;
+    rep(ti,t.size()){
+        while(si<s.size() && s[si]!=t[ti])si++;
+        if(si==s.size())return false;
+        si++;
     }
-    return false;
+    return true;
 }
 
 int main(){
     int n;
-    string ts;
-    cin >> n >> ts;
+    string t;
+    cin >> n >> t;
     vector<string>s(n);
     rep(i,n)cin >> s[i];
+
+    vector<int>ans;
     rep(i,n){
-        if(cheack(s[i])){
-            ans.push_back(i+1);
+        bool ok=false;
+        if(s[i].size()+1>=t.size()){
+            if(f(s[i],t))ok=true;
+            if(f(t,s[i]))ok=true;
+            if(ham(s[i],t)<=1)ok=true;
         }
+        if(ok)ans.push_back(i+1);
     }
     cout << ans.size() << endl;
     for(int v:ans)cout << v << ' ';
+    cout << endl;
     return 0;
 }
