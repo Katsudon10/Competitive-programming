@@ -16,24 +16,23 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,m;
     cin >> n >> m;
-    vector<int>A(n),B(m);
-    rep(i,n)cin >> A[i];
-    rep(i,m)cin >> B[i];
+    vector<int>a(n),b(m);
+    rep(i,n)cin >> a[i];
+    rep(i,m)cin >> b[i];
 
-    map<int,int>mp;
-    rep(i,n)mp[A[i]]++;
-    sort(ALL(B));
-    int cnt=0;
-    int ans=B.back()+1;
-    for(auto p:mp){
-        cnt+=p.second;
-        int c=B.end()-lower_bound(ALL(B),p.first);
-        cout << c << endl;
-        int e=lower_bound(ALL(B),p.first)-B.begin();
-        if(cnt>=c){
-            ans=min(ans,p.first);
+    vector<P>ev;
+    rep(i,n)ev.push_back(P(a[i],0));
+    rep(i,m)ev.push_back(P(b[i]+1,1));
+
+    sort(ALL(ev));
+
+    int na=0,nb=m;
+    for(auto v:ev){
+        if(v.second==0)na++; else nb--;
+        if(na>=nb){
+            cout << v.first << endl;
+            return 0;
         }
     }
-    cout << ans << endl;
     return 0;
 }
