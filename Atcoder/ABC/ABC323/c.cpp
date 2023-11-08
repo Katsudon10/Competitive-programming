@@ -20,25 +20,22 @@ int main(){
     rep(i,m)cin >> a[i];
     vector<string>s(n);
     rep(i,n)cin >> s[i];
+
     vector<int>cnt(n);
+    rep(i,n)cnt[i]=i+1;
     rep(i,n)rep(j,m)if(s[i][j]=='o')cnt[i]+=a[j];
-    rep(i,n)cnt[i]+=i+1;
-    sort(a.rbegin(),a.rend());
-    
-    vector<int>sc=cnt;
-    sort(ALL(sc));
-    int cmax=sc.back();
-    vector<int>ans(n);
+
+    int mx=*max_element(ALL(cnt));
     rep(i,n){
-        int tc=cnt[i];
-        rep(j,m){
-            if(tc>=cmax)break;
-            if(s[i][j]=='x'){
-                tc+=a[j];
-                ans[i]++;
-            }
+        vector<int>x;
+        rep(j,m)if(s[i][j]=='x')x.push_back(a[j]);
+        sort(x.rbegin(),x.rend());
+        int v=0;
+        while(cnt[i]<mx){
+            cnt[i]+=x[v];
+            v++;
         }
+        cout << v << endl;
     }
-    rep(i,n)cout << ans[i] << endl;
     return 0;
 }
