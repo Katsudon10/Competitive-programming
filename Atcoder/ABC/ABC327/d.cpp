@@ -13,42 +13,44 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
+bool dfs(Graph &G,int v,vector<int> &color){
+    for(auto vs:G[v]){
+        if(color[vs]!=-1){
+            if(color[v]==color[vs])return false;
+            continue;
+        }
+        color[vs]=1-color[v];
+        if(!dfs(G,vs,color))return false;
+    }
+    return true;
+}
 
 int main(){
     int n,m;
     cin >> n >> m;
+    Graph G(n);
     vector<int>a(m),b(m);
     rep(i,m){
         cin >> a[i];
-        a[i]--;
+        a[i]--;    
     }
     rep(i,m){
         cin >> b[i];
         b[i]--;
     }
-    Graph G(n);
-
-    rep(i,m)G[a[i]].push_back(b[i]);
-
-    rep(i,n){
-        queue<int>que;
-        que.push(i);
-        vector<bool>seen(n,false);
-        seen[i]=true;
-        while(!que.empty()){
-            int v=que.front();
-            que.pop();
-            for(int vf:G[v]){
-                if(vf==i){
-                    cout << "No" << endl;
-                    return 0;
-                }
-                if(seen[vf])continue;
-                seen[vf]=true;
-                que.push(vf);
-            }
-        }
+    rep(i,m){
+        G[a[i]].push_back(b[i]);
+        G[b[i]].push_back(a[i]);
     }
-    cout << "Yes" << endl;
+    
+    vector<int>color(n,-1);
+    bool is_partite=true;
+    rep(i,n){
+        if(color[i]!=-1)continue;
+        color[i]=0;
+        if(!dfs(G,i,color))is_partite=false;
+    }
+    if(is_partite)cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }
