@@ -16,11 +16,13 @@ vector<int>dys={0,1,0,-1};
 int main(){
     string s;
     cin >> s;
-    while(true){
-        int it=s.find("ABC");
-        if(it==string::npos)break;
-        else s.erase(it,3);
+    string ans;
+    for(char c:s){
+        ans+=c;
+        if(ans.size()>=3 && ans.substr(ans.size()-3)=="ABC"){
+            ans.erase(ans.end()-3,ans.end());
+        }
     }
-    cout << s << endl;
+    cout << ans << endl;
     return 0;
 }
