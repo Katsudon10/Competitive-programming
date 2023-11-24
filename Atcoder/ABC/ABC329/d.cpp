@@ -18,9 +18,13 @@ int main(){
     cin >> n >> m;
     vector<int>a(m);
     rep(i,m)cin >> a[i];
-    vector<int>cnt(n);
+    vector<int>cnt(n+1);
+    int ans=0;
     rep(i,m){
-        
+        cnt[a[i]]++;
+        if(cnt[ans]<cnt[a[i]])ans=a[i];
+        else if(cnt[ans]==cnt[a[i]])ans=min(ans,a[i]);
+        cout << ans << endl;
     }
     return 0;
 }
