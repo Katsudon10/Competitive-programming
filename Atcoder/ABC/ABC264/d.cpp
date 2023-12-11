@@ -15,7 +15,19 @@ vector<int>dys={0,1,0,-1};
 
 int main(){
     string s;
+    string t="atcoder";
     cin >> s;
-    
+    map<char,int>mp;
+
+    int n=s.size();
+    rep(i,n)mp[t[i]]=i;
+    vector<int>a(n);
+    rep(i,n)a[i]=mp[s[i]];
+
+    int ans=0;
+    rep(i,n)rep(j,i){
+        if(a[j]>a[i])ans++;
+    }
+    cout << ans << endl;
     return 0;
 }
