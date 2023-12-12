@@ -14,7 +14,22 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    ll k;
+    int k;
     cin >> k;
+
+    vector<ll>a;
+    rep(i,1<<10){
+        ll x=0;
+        for(int j=9;j>=0;j--){
+            if(i&(1<<j)){
+                x*=10;
+                x+=j;
+            }
+        }
+        if(x==0)continue;
+        a.push_back(x);
+    }
+    sort(ALL(a));
+    cout << a[k-1] << endl;
     return 0;
 }
