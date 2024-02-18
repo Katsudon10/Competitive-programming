@@ -14,12 +14,17 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    string s;
-    cin >> s;
-    string sr;
-    sr=s;
-    sort(ALL(sr));
-    if(s==sr)cout << "Yes" << endl;
-    else cout << "No" << endl;
+    int q;
+    cin >> q;
+    vector<int>a;
+    rep(i,q){
+        int query,x;
+        cin >> query >> x;
+        if(query==1){
+            a.push_back(x);
+        }else{
+            cout << a[a.size()-x] << endl;
+        }
+    }
     return 0;
 }

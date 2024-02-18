@@ -14,12 +14,8 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    string s;
-    cin >> s;
-    string sr;
-    sr=s;
-    sort(ALL(sr));
-    if(s==sr)cout << "Yes" << endl;
-    else cout << "No" << endl;
+    ll n,m,k;
+    cin >> n >> m >> k;
+    
     return 0;
 }
