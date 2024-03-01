@@ -14,15 +14,16 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n;
-    cin >> n;
-    vector<ll>a(n,0);
-    rep(i,n)cin >> a[i];
-    rep(i,n-1){
-        ll t,s;
-        cin >> t >> s;
-        a[i+1]+=a[i]/t*s;
+    string s;
+    cin >> s;
+    rep(i,s.size()){
+        if(i==0 && isupper(s[i]))continue;
+        else if (i!=0 && islower(s[i]))continue;
+        else {
+            cout << "No" << endl;
+            return 0;
+        }
     }
-    cout << a[n-1] << endl;
+    cout << "Yes" << endl;
     return 0;
 }

@@ -14,15 +14,13 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n;
-    cin >> n;
-    vector<ll>a(n,0);
-    rep(i,n)cin >> a[i];
-    rep(i,n-1){
-        ll t,s;
-        cin >> t >> s;
-        a[i+1]+=a[i]/t*s;
+    string s;
+    cin >> s;
+    sort(ALL(s));
+    char ans=s[0];
+    char cnt=0,mx=0
+    for(int i=1;i<s.size()-1;i++){
+        if(s[i]==s[i+1])
     }
-    cout << a[n-1] << endl;
     return 0;
 }
