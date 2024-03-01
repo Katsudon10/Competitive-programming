@@ -16,11 +16,12 @@ vector<int>dys={0,1,0,-1};
 int main(){
     string s;
     cin >> s;
-    sort(ALL(s));
-    char ans=s[0];
-    char cnt=0,mx=0
-    for(int i=1;i<s.size()-1;i++){
-        if(s[i]==s[i+1])
+    vector<int>cnt(26,0);
+    for(char c:s)cnt[c-'a']++;
+    int ans=0;
+    rep(i,26){
+        if(cnt[i]>cnt[ans])ans=i;
     }
+    cout << char(ans+'a') << endl;
     return 0;
 }
