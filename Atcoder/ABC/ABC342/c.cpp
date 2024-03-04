@@ -19,24 +19,21 @@ int main(){
     cin >> n >> s;
     int q;
     cin >> q;
-    map<char,char>mp1,mp2;
-    for(char c:s)mp1[c]=c;
+    
+    string s1,s2;
+    s1=s2="abcdefghijklmnopqrstuvwxyz";
     rep(i,q){
         char c,d;
         cin >> c >> d;
-        if(mp1.count(c)){
-            if(mp2.count(c)){
-                mp1[mp2[c]]=d;
-                mp2[d]=mp2[c];
-                mp1[c]=d;
-            }else{
-                mp1[c]=d;
-                mp2[d]=c;
-            }
+        rep(j,s2.size()){
+            if(s2[j]==c)s2[j]=d;
         }
     }
+
     for(char c:s){
-        cout << mp1[c];
+        rep(i,s1.size()){
+            if(c==s1[i])cout << s2[i];
+        }
     }
     cout << endl;
     return 0;
