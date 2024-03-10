@@ -22,10 +22,19 @@ int main(){
     rep(i,n)cin >> b[i];
 
     int ans=0;
-    rep(i,n){
-        rep(j,n){
-            
+    rep(x,1e6+1){
+        vector<int>c(n);
+        rep(i,n)c[i]=q[i]-a[i]*x;
+        bool flag=true;
+        rep(i,n)if(c[i]<0)flag=false;
+        if(!flag)break;
+        int y=1e7;
+        rep(i,n){
+            if(b[i]==0)continue;
+            y=min(y,c[i]/b[i]);
         }
+        ans=max(ans,x+y);
     }
+    cout << ans << endl;
     return 0;
 }
