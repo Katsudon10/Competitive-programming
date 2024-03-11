@@ -13,15 +13,15 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
+ll f(ll x,ll m){
+    ll r = (x % m + m) % m;
+    return (x - r) / m;
+}
+
 int main(){
     ll a,m,l,r;
     cin >> a >> m >> l >> r;
-    ll ans=0;
-    if(a>l && a<r){
-        ans=(a-l)/m+(r-a)/m+1;
-    }else{
-        ans=(r-l)/m;
-    }
-    cout << ans << endl;
+    l-=a,r-=a;
+    cout << f(r,m)-f(l-1,m) << endl;
     return 0;
 }
