@@ -5,16 +5,21 @@ using namespace std;
 const int inf = INT_MAX;
 using ll = long long;
 using P = pair<int,int>;
+struct Edge{
+    int to;
+    ll w;
+    Edge(int to,ll w):to(to),w(w){}
+};
 using Graph = vector<vector<int>>;
+using WeightedGraph = vector<vector<Edge>>;
 
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
+//A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n;
-    cin >> n;
-    cout << n << endl;
+
     return 0;
 }
