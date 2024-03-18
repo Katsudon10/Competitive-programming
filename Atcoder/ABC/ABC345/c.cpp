@@ -22,16 +22,17 @@ vector<int>dys={0,1,0,-1};
 int main(){
     string s;
     cin >> s;
-    ll ans=0;
-    vector<int>cnt(26,0);
-    for(char c:s)cnt[c-'a']++;
     int n=s.size();
-    rep(i,n){
-        char c=s[i];
-        ans+=n-cnt[c-'a']-i;
-        cnt[c-'a']--;
+    ll same=0;
+    map<char,int>cnt;
+    for(char c:s)cnt[c]++;
+    for(auto p:cnt){
+        int m=p.second;
+        same+=(ll)m*(m-1)/2;
     }
-    if(ans==0)ans=1;
+    ll diff=(ll)n*(n-1)/2-same;
+    ll ans=diff;
+    if(same)ans++;
     cout << ans << endl;
     return 0;
 }
