@@ -5,7 +5,13 @@ using namespace std;
 const int inf = INT_MAX;
 using ll = long long;
 using P = pair<int,int>;
+struct Edge{
+    int to;
+    ll w;
+    Edge(int to,ll w):to(to),w(w){}
+};
 using Graph = vector<vector<int>>;
+using WeightedGraph = vector<vector<Edge>>;
 
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
@@ -14,28 +20,29 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n;
-    long long int ans=0;
-    cin >> n;
-    queue<int>que;
-    rep(i,n){
-        int num;
-        cin >> num;
-        if(num==1){
+    int q;
+    cin >> q;
+    deque<P>que;
+    rep(i,q){
+        int p;
+        cin >> p;
+        if(p==1){
             int x,c;
             cin >> x >> c;
-            rep(i,c) que.push(x);
+            que.emplace_back(x,c);
         }else{
             int c;
             cin >> c;
             ll ans=0;
-            rep(i,c){
-                ans+=que.front();
-                que.pop();
+            while(c){
+                int y=min(que.front().second,c);
+                ans+=(ll)que.front().first*y;
+                c-=y;
+                que.front().second-=y;
+                if(que.front().second==0)que.pop_front();
             }
             cout << ans << endl;
         }
     }
-    
     return 0;
 }
