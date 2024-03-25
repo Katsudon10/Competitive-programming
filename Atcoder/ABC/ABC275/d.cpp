@@ -23,8 +23,7 @@ ll f(ll n){
     if(n==0)return 1;
     if(mp.count(n))return mp[n];
     ll a=n/2,b=n/3;
-    mp[n]=f(a)+f(b);
-    return mp[n];
+    return mp[n]=f(a)+f(b);
 }
 
 int main(){
