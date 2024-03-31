@@ -38,7 +38,7 @@ struct UnionFind{
    }
 
    int size(int x){
-       return siz(root(x));
+       return siz[root(x)];
    }
 };
 vector<int>dxs={1,0,-1,0};
