@@ -32,7 +32,7 @@ struct UnionFind{
        if(rx==ry)return false;
        if(rank[rx]<rank[ry])swap(rx,ry);
        par[ry]=rx;
-       if(rank[rx]<rank[ry])rank[rx]++;
+       if(rank[rx]==rank[ry])rank[rx]++;
        siz[rx]+=siz[ry];
        return true;
    }
