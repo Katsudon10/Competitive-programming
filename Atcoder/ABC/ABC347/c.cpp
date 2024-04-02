@@ -13,6 +13,34 @@ struct Edge{
 using Graph = vector<vector<int>>;
 using WeightedGraph = vector<vector<Edge>>;
 
+
+struct UnionFind{
+   vector<int> par,rank,siz;
+   UnionFind(int n) : par(n,-1),rank(n,0),siz(n,1){ }
+
+   int root(int x){
+       if(par[x]==-1)return x;
+       else return par[x]=root(par[x]);
+   }
+
+   bool issame(int x,int y){
+       return root(x)==root(y);
+   }
+
+   bool unite(int x,int y){
+       int rx=root(x),ry=root(y);
+       if(rx==ry)return false;
+       if(rank[rx]<rank[ry])swap(rx,ry);
+       par[ry]=rx;
+       if(rank[rx]==rank[ry])rank[rx]++;
+       siz[rx]+=siz[ry];
+       return true;
+   }
+
+   int size(int x){
+       return siz[root(x)];
+   }
+};
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
@@ -22,20 +50,21 @@ vector<int>dys={0,1,0,-1};
 int main(){
     ll n,a,b;
     cin >> n >> a >> b;
-    vector<ll>d(n);
-    rep(i,n)cin >> d[i];
     ll w=a+b;
-    bool flag=true;
+    vector<ll>d(n);
     rep(i,n){
-        d[i]=d[i]%w;
+        cin >> d[i];
+        d[i]%=w;
     }
-    int mind=*min_element(ALL(d));
-    
-    rep(i,n){
-        if(d[i]-mind>=a)flag=false;
-    }
+    rep(i,n)d.push_back(d[i]+w);
+    sort(ALL(d));
 
-    if(flag)cout << "Yes" << endl;
-    else cout << "No" << endl;
+    rep(i,d.size()-1){
+        if(d[i+1]-d[i]>b){
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+    cout << "No" << endl;
     return 0;
 }
