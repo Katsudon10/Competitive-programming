@@ -5,39 +5,73 @@ using namespace std;
 const int inf = INT_MAX;
 using ll = long long;
 using P = pair<int,int>;
+struct Edge{
+    int to;
+    ll w;
+    Edge(int to,ll w):to(to),w(w){}
+};
 using Graph = vector<vector<int>>;
+using WeightedGraph = vector<vector<Edge>>;
 
+
+struct UnionFind{
+   vector<int> par,rank,siz;
+   UnionFind(int n) : par(n,-1),rank(n,0),siz(n,1){ }
+
+   int root(int x){
+       if(par[x]==-1)return x;
+       else return par[x]=root(par[x]);
+   }
+
+   bool issame(int x,int y){
+       return root(x)==root(y);
+   }
+
+   bool unite(int x,int y){
+       int rx=root(x),ry=root(y);
+       if(rx==ry)return false;
+       if(rank[rx]<rank[ry])swap(rx,ry);
+       par[ry]=rx;
+       if(rank[rx]==rank[ry])rank[rx]++;
+       siz[rx]+=siz[ry];
+       return true;
+   }
+
+   int size(int x){
+       return siz[root(x)];
+   }
+};
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
+//A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
     int n;
     cin >> n;
-    vector<ll>A(n);
-    rep(i,n)cin >> A[i];
-    int q;
-    cin >> q;
-    vector<ll>L(q),R(q);
-    rep(i,q)cin >> L[i] >> R[i];
-    vector<ll>T(n-1,0);
-
-    for(int i=1;i<n-1;i++){
-        int t=0;
-        if(i%2==1)t=A[i+1]-A[i];
-        T[i]=t+T[i-1];
+    vector<int>a(n);
+    rep(i,n)cin >> a[i];
+    vector<int>s(n);
+    for(int i=1;i<n;i++){
+        s[i]=s[i-1];
+        if(i%2==0)s[i]+=a[i]-a[i-1];
     }
 
+    auto f = [&](int x){
+        int v=lower_bound(ALL(a),x)-a.begin()-1;
+        if(v<0)return 0;
+        int res=s[v];
+        if(v%2==1)res+=x-a[v];
+        return res;
+    };
+    
+    int q;
+    cin >> q;
     rep(i,q){
-        ll ans=0;
-        int Mint=upper_bound(ALL(A),L[i])-A.begin();
-        int Maxt=lower_bound(ALL(A),R[i])-A.begin();
-        ans=T[Maxt-1];
-        if(Mint%2==0)ans-=L[i]-A[Mint-1];
-        else ans-=T[Mint-1];
-        if(Maxt%2==0)ans-=A[Maxt]-R[i];
-        else ;
+        int l,r;
+        cin >> l >> r;
+        int ans=f(r)-f(l);
         cout << ans << endl;
     }
     return 0;
