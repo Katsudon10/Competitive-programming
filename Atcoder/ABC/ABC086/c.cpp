@@ -5,8 +5,42 @@ using namespace std;
 const int inf = INT_MAX;
 using ll = long long;
 using P = pair<int,int>;
+struct Edge{
+    int to;
+    ll w;
+    Edge(int to,ll w):to(to),w(w){}
+};
 using Graph = vector<vector<int>>;
+using WeightedGraph = vector<vector<Edge>>;
 
+
+struct UnionFind{
+   vector<int> par,rank,siz;
+   UnionFind(int n) : par(n,-1),rank(n,0),siz(n,1){ }
+
+   int root(int x){
+       if(par[x]==-1)return x;
+       else return par[x]=root(par[x]);
+   }
+
+   bool issame(int x,int y){
+       return root(x)==root(y);
+   }
+
+   bool unite(int x,int y){
+       int rx=root(x),ry=root(y);
+       if(rx==ry)return false;
+       if(rank[rx]<rank[ry])swap(rx,ry);
+       par[ry]=rx;
+       if(rank[rx]==rank[ry])rank[rx]++;
+       siz[rx]+=siz[ry];
+       return true;
+   }
+
+   int size(int x){
+       return siz[root(x)];
+   }
+};
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
@@ -18,22 +52,19 @@ int main(){
     cin >> n;
     vector<int>t(n),x(n),y(n);
     rep(i,n)cin >> t[i] >> x[i] >> y[i];
-    int pt=0,px=0,py=0;
-    rep(i,n){
-        int d=abs(x[i]-px)+abs(y[i]-py);
-        int dt=t[i]-pt;
-        if(dt<d){
-            cout << "No" << endl;
-            return 0;
-        }
-        if((dt-d)%2==1){
-            cout << "No" << endl;
-            return 0;
-        }
-        pt=t[i];
-        px=x[i];
-        py=y[i];
+    bool flag=true;
+    if(n==1){
+        int dist=abs(x[0])+abs(y[0]);
+        if(dist>t[0])flag=false;
     }
-    cout << "Yes" << endl;
+    rep(i,n-1){
+        int dist=abs(x[i]-x[i+1])+abs(y[i]-y[i+1]);
+        int dt=t[i+1]-t[i];
+        if(dist>dt)flag=false;
+        else if((dt-dist)%2==0)continue;
+        else flag=false;
+    }
+    if(flag)cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }
