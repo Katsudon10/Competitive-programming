@@ -48,10 +48,22 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n,m;
-    cin >> n >> m;
-    vector<int>l(n);
-    rep(i,n)cin >> l[i];
-    
+    int n;
+    cin >> n;
+    vector<int>x(n),y(n);
+    rep(i,n)cin >> x[i] >> y[i];
+    rep(i,n){
+        int ans=0,res=-1;
+        rep(j,n){
+            if(i==j)continue;
+            int d=(x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]);
+            if(d>ans){
+                swap(ans,d);
+                res=j+1;
+            }
+        }
+        cout << res << endl;
+    }
+
     return 0;
 }

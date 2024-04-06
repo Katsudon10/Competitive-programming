@@ -48,10 +48,12 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n,m;
-    cin >> n >> m;
-    vector<int>l(n);
-    rep(i,n)cin >> l[i];
-    
+    int n;
+    cin >> n;
+    rep(i,n){
+        if((i+1)%3==0)cout << 'x';
+        else cout << 'o';
+    }
+    cout << endl;
     return 0;
 }

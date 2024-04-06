@@ -47,11 +47,51 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
+int h,w;
+
+bool dfs(vector<vector<char>> &G,vector<vector<int>> &E,int x,int y,vector<vector<bool>> &seen,int energy){
+    seen[x][y]=true;
+    energy=max(energy,E[x][y]);
+    if(G[x][y]=='T'){
+        return true;
+    }
+    if(energy==0)return false;
+
+    rep(i,4){
+        int dx=x+dxs[i];
+        int dy=y+dys[i];
+        if(dx>=0 && dx<h && dy>=0 && dy<w && !seen[dx][dy] && G[dx][dy]!='#'){
+            int e=energy-1;
+            if(dfs(G,E,dx,dy,seen,e)) return true;
+        }
+    }
+    return false;
+}
+
 int main(){
-    int n,m;
-    cin >> n >> m;
-    vector<int>l(n);
-    rep(i,n)cin >> l[i];
+    cin >> h >> w;
+    vector<vector<char>>G(h,vector<char>(w));
+    vector<vector<int>>E(h,vector<int>(w,0));
+    int sx,sy;
+    rep(i,h)rep(j,w){
+        cin >> G[i][j];
+        if(G[i][j]=='S')sx=i,sy=j;
+    }
+    int n;
+    cin >> n;
+    rep(i,n){
+        int r,c,e;
+        cin >> r >> c >> e;
+        r--,c--;
+        E[r][c]=e;
+    }
+    vector<vector<bool>>seen(h,vector<bool>(w,false));
+    int energy=0;
+    if(dfs(G,E,sx,sy,seen,energy)){
+        cout << "Yes" << endl;
+    }else{
+        cout << "No" << endl;
+    }
     
     return 0;
 }

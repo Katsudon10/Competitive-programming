@@ -48,10 +48,21 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n,m;
-    cin >> n >> m;
-    vector<int>l(n);
-    rep(i,n)cin >> l[i];
-    
+    int n;
+    cin >> n;
+    map<int,int>mp;
+    rep(i,n){
+        int a,c;
+        cin >> a >> c;
+        if(!mp.count(c))mp[c]=a;
+        else mp[c]=min(mp[c],a);
+    }
+
+    int ans=-1;
+
+    for(auto p:mp){
+        ans=max(ans,p.second);
+    }
+    cout << ans << endl;
     return 0;
 }
