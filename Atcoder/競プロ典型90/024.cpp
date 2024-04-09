@@ -48,19 +48,20 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n,k;
+    ll n,k;
     cin >> n >> k;
-    ll cnt=0;
-    rep(i,n){
-        int a,b;
-        cin >> a >> b;
-        cnt+=abs(a-b);
-    }
-    if(cnt>k){
+    vector<ll>a(n),b(n);
+    rep(i,n)cin >> a[i];
+    rep(i,n)cin >> b[i];
+    ll diff=0;
+    rep(i,n)diff+=abs(a[i]-b[i]);
+
+    if(diff>k){
         cout << "No" << endl;
-        return 0;    
+        return 0;
     }
-    if((k-cnt)%2==0)cout << "Yes" << endl;
+
+    if((k-diff)%2==0)cout << "Yes" << endl;
     else cout << "No" << endl;
     return 0;
 }
