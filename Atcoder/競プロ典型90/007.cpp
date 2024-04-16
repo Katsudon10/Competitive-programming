@@ -46,33 +46,22 @@ vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
-ll ans=-1;
-void dfs(WeightedGraph &G,int v,vector<bool> &seen,ll dist){
-    seen[v]=true;
-    ans=max(ans,dist);
-    for(auto vs:G[v]){
-        if(seen[vs.to])continue;
-        dfs(G,vs.to,seen,dist+vs.w);
-    }
-    seen[v]=false;
-}
 
 int main(){
-    int n,m;
-    cin >> n >> m;
-    WeightedGraph G(n);
-    rep(i,m){
-        int a,b,c;
-        cin >> a >> b >> c;
-        a--;b--;
-        G[a].emplace_back(b,c);
-        G[b].emplace_back(a,c);
+    int n,q;
+    cin >> n;
+    vector<int>a(n);
+    rep(i,n)cin >> a[i];
+    sort(ALL(a));
+    cin >> q;
+    rep(i,q){
+        int b;
+        cin >> b;
+        int v=lower_bound(ALL(a),b)-a.begin();
+        int ans=abs(a[v]-b);
+        if(v-1>=0)ans=min(ans,abs(a[v-1]-b));
+        if(v+1<n)ans=min(ans,abs(a[v+1]-b));
+        cout << ans << endl;
     }
-
-    rep(i,n){
-        vector<bool>seen(n,false);
-        dfs(G,i,seen,0);
-    }
-    cout << ans << endl;
     return 0;
 }

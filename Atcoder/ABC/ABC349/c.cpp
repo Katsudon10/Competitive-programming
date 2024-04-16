@@ -46,33 +46,25 @@ vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
-ll ans=-1;
-void dfs(WeightedGraph &G,int v,vector<bool> &seen,ll dist){
-    seen[v]=true;
-    ans=max(ans,dist);
-    for(auto vs:G[v]){
-        if(seen[vs.to])continue;
-        dfs(G,vs.to,seen,dist+vs.w);
-    }
-    seen[v]=false;
-}
 
 int main(){
-    int n,m;
-    cin >> n >> m;
-    WeightedGraph G(n);
-    rep(i,m){
-        int a,b,c;
-        cin >> a >> b >> c;
-        a--;b--;
-        G[a].emplace_back(b,c);
-        G[b].emplace_back(a,c);
+    string s,t;
+    cin >> s >> t;
+    if(t[2]=='X'){
+        int v1=-1,v2=-1;
+        v1=s.find(tolower(t[0]));
+        v2=s.rfind(tolower(t[1]));
+        if(v1<v2)cout << "Yes" << endl;
+        else cout << "No" << endl;
+    }else{
+        int v1=-1,v2=-1,v3=-1;
+        v1=s.find(tolower(t[0]));
+        v3=s.rfind(tolower(t[2]));
+        for(v2=v1+1;v2<v3;v2++){
+            if(s[v2]==tolower(t[1]))break;
+        }
+        if(v1<v2 && v2<v3)cout << "Yes" << endl;
+        else cout << "No" << endl;
     }
-
-    rep(i,n){
-        vector<bool>seen(n,false);
-        dfs(G,i,seen,0);
-    }
-    cout << ans << endl;
     return 0;
 }
