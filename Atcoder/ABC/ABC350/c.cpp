@@ -55,15 +55,17 @@ int main(){
         cin >> a[i];
         a[i]--;
     }
-
+    vector<int>pos(n);
+    rep(i,n)pos[a[i]]=i;
     vector<P>ans;
-    vector<int>res(n);
-    rep(i,n)res[a[i]]=i;
+
     rep(i,n-1){
-        if(res[i]==i)continue;
-        ans.emplace_back(i+1,res[i]+1);
-        swap(res[i],res[a[i]]);
+        if(pos[i]==i)continue;
+        ans.emplace_back(i+1,pos[i]+1);
+        pos[a[i]]=pos[i];
+        swap(a[i],a[pos[i]]);
     }
+    
     cout << ans.size() << endl;
     for(auto p:ans)cout << p.first << ' ' << p.second << endl;
     return 0;
