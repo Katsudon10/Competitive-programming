@@ -50,14 +50,20 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,m;
     cin >> n >> m;
-    Graph G(n);
+    UnionFind uf(n);
     rep(i,m){
         int a,b;
         cin >> a >> b;
         a--,b--;
-        G[a].push_back(b);
-        G[b].push_back(a);
+        uf.unite(a,b);
     }
-    
+    ll cnt=0;
+    rep(i,n){
+        if(uf.root(i)==i){
+            int v=uf.size(i);
+            cnt+=(ll)v*(v-1)/2;
+        }
+    }
+    cout << cnt-m << endl;
     return 0;
 }
