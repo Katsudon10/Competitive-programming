@@ -12,7 +12,7 @@ struct Edge{
     Edge(int to,ll cost):to(to),cost(cost){}
 };
 using Graph = vector<vector<int>>;
-// using WeightedGraph = vector<vector<Edge>>;
+using WeightedGraph = vector<vector<Edge>>;
 
 
 struct UnionFind{
@@ -51,7 +51,7 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n;
     cin >> n;
-    vector<vector<Edge>> G(n);
+    WeightedGraph G(n);
     rep(i,n-1){
         int a,b,x;
         cin >> a >> b >> x;
