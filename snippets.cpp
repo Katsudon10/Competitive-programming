@@ -4,11 +4,12 @@ using namespace std;
 #define ALL(a)  (a).begin(),(a).end()
 const int inf = INT_MAX;
 using ll = long long;
+const ll INF = 1e18;
 using P = pair<int,int>;
 struct Edge{
     int to;
-    ll w;
-    Edge(int to,ll w):to(to),w(w){}
+    ll cost;
+    Edge(int to,ll cost):to(to),cost(cost){}
 };
 using Graph = vector<vector<int>>;
 using WeightedGraph = vector<vector<Edge>>;
@@ -48,6 +49,6 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    
+
     return 0;
 }
