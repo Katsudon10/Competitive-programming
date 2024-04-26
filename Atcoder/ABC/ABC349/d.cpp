@@ -50,6 +50,20 @@ vector<int>dys={0,1,0,-1};
 int main(){
     ll l,r;
     cin >> l >> r;
-    
+    vector<pair<ll,ll>>ans;
+    while(l<r){
+        for(int i=60;i>=0;i--){
+            ll w=1ll<<i;
+            if(l%w!=0)continue;
+            if(l+w>r)continue;
+            ans.emplace_back(l,l+w);
+            l+=w;
+            break;
+        }
+    }
+    cout << ans.size() << endl;
+    for(auto p:ans){
+        cout << p.first << ' ' << p.second << endl;
+    }
     return 0;
 }
