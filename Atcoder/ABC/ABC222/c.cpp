@@ -4,16 +4,73 @@ using namespace std;
 #define ALL(a)  (a).begin(),(a).end()
 const int inf = INT_MAX;
 using ll = long long;
+const ll INF = 1e18;
 using P = pair<int,int>;
+struct Edge{
+    int to;
+    ll cost;
+    Edge(int to,ll cost):to(to),cost(cost){}
+};
 using Graph = vector<vector<int>>;
+using WeightedGraph = vector<vector<Edge>>;
 
+
+struct UnionFind{
+   vector<int> par,rank,siz;
+   UnionFind(int n) : par(n,-1),rank(n,0),siz(n,1){ }
+
+   int root(int x){
+       if(par[x]==-1)return x;
+       else return par[x]=root(par[x]);
+   }
+
+   bool issame(int x,int y){
+       return root(x)==root(y);
+   }
+
+   bool unite(int x,int y){
+       int rx=root(x),ry=root(y);
+       if(rx==ry)return false;
+       if(rank[rx]<rank[ry])swap(rx,ry);
+       par[ry]=rx;
+       if(rank[rx]==rank[ry])rank[rx]++;
+       siz[rx]+=siz[ry];
+       return true;
+   }
+
+   int size(int x){
+       return siz[root(x)];
+   }
+};
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
+bool win(char a,char b){
+    if(a=='G' && b=='C')return true;
+    if(a=='C' && b=='P')return true;
+    if(a=='P' && b=='G')return true;
+    return false;
+}
+
 int main(){
-    
+    int n,m;
+    cin >> n >> m;
+    vector<string>a(2*n);
+    rep(i,2*n)cin >> a[i];
+    vector<P>d(2*n);
+    rep(i,2*n)d[i]=P(0,i);
+    rep(mi,m){
+        rep(ni,n){
+            int i=2*ni,j=2*ni+1;
+            int ai=d[i].second,aj=d[j].second;
+            if(win(a[ai][mi],a[aj][mi]))d[i].first--;
+            if(win(a[aj][mi],a[ai][mi]))d[j].first--;
+        }
+        sort(ALL(d));
+    }
+    rep(i,2*n)cout<< d[i].second+1 << endl;
     return 0;
 }
