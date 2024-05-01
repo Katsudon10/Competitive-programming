@@ -46,34 +46,35 @@ vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
-int f(int n){
-    int k=1;
-    int res=0;
-    while(n!=0){
-        int m=n%10;
-        res+=m*k;
-        k*=8;
-        n/=10;
+
+ll base8(string s){
+    ll res=0;
+    rep(i,s.size()){
+        res=res*8+int(s[i]-'0');
     }
-    int ans=0;
-    k=1;
-    while(res!=0){
-        int m=res%9;
-        if(m==8)m=5;
-        ans+=m*k;
-        k*=10;
-        res/=9;
+    return res;
+}
+
+string base9(ll n){
+    if(n==0)return "0";
+    string res;
+    while(n>0){
+        res=char(n%9+'0')+res;
+        n/=9;
     }
     return res;
 }
 
 int main(){
-    ll n,k;
+    string n;
+    int k;
     cin >> n >> k;
-    int ans=n;
     rep(i,k){
-        ans=f(ans);
+        n=base9(base8(n));
+        rep(j,n.size()){
+            if(n[j]=='8')n[j]='5';
+        }
     }
-    cout << ans << endl;
+    cout << n << endl;
     return 0;
 }
