@@ -51,24 +51,20 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,q;
     cin >> n >> q;
-    deque<int>deq;
-    rep(i,n){
-        int a;
-        cin >> a;
-        deq.push_back(a);
-    }
+    vector<int>a(n);
+    rep(i,n)cin >> a[i];
+    int res=0;
 
     rep(i,q){
         int t,x,y;
         cin >> t >> x >> y;
         x--,y--;
         if(t==1){
-            swap(deq[x],deq[y]);
+            swap(a[(x+res)%n],a[(y+res)%n]);
         }else if(t==2){
-            deq.push_front(deq.back());
-            deq.pop_back();
+            res=(res-1+n)%n;
         }else{
-            cout << deq[x] << endl;
+            cout << a[(x+res)%n] << endl;
         }
     }
     return 0;
