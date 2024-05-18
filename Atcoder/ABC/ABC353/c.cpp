@@ -53,11 +53,16 @@ int main(){
     cin >> n;
     vector<int>a(n);
     rep(i,n)cin >> a[i];
-    int ans=0;
-    rep(i,n-1){
-        for(int j=i+1;j<n;j++){
-            ans+=(a[i]+a[j])%1e8;
-        }
+    sort(ALL(a));
+
+    ll ans=0;
+    rep(i,n)ans+=(ll)a[i]*(n-1);
+
+    int j=n-1;
+    int m=1e8;
+    rep(i,n){
+        while(j>=0 && a[i]+a[j]>=m)j--;
+        ans-=(ll)(n-max(j,i)-1)*m;
     }
     cout << ans << endl;
     return 0;
