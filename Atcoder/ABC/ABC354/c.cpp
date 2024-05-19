@@ -54,9 +54,24 @@ int main(){
     vector<int>a(n),c(n);
     rep(i,n)cin >> a[i] >> c[i];
 
-    vector<P>p;
-    rep(i,n)p.emplace_back(a[i],c[i]);
+    vector<int>is(n);
+    rep(i,n)is[i]=i;
 
+    sort(ALL(is),[&](int i,int j){
+        return a[i]>a[j];
+    });
+
+    vector<int>ans;
+    for(int i:is){
+        if(ans.size()==0 || c[ans.back()]>c[i]){
+            ans.push_back(i);
+        }
+    }
+
+    sort(ALL(ans));
+    cout << ans.size() << endl;
+    for(int i:ans)cout << i+1 << ' ';
+    cout << endl;
 
     return 0;
 }
