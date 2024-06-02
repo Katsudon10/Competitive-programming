@@ -49,6 +49,8 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-
+    ll n,k;
+    cin >> n >> k;
+    const int mod=1000000000+7;
     return 0;
 }

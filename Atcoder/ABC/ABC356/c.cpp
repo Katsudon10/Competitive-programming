@@ -49,6 +49,44 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
+    int n,m,k;
+    cin >> n >> m >> k;
+    vector<vector<int>>a(m);
+    vector<int>c(m);
+    vector<char>r(m);
+    rep(i,m){
+        cin >> c[i];
+        a[i]=vector<int>(c[i]);
+        rep(j,c[i])cin >> a[i][j];
+        cin >> r[i];
+    }
 
+    int ans=0;
+    for(int bit=0;bit<(1<<n);bit++){
+        vector<int>v;
+        rep(i,n){
+            if(bit & (1<<i)){
+                v.push_back(i+1);
+            }
+        }
+        bool flag=true;
+        rep(i,m){
+            if(r[i]=='o'){
+                int cnt=0;
+                rep(j,c[i]){
+                    if(count(ALL(v),a[i][j]))cnt++;
+                }
+                if(cnt<k)flag=false;
+            }else{
+                int cnt=0;
+                rep(j,c[i]){
+                    if(count(ALL(v),a[i][j]))cnt++;
+                }
+                if(cnt>=k)flag=false;
+            }
+        }
+        if(flag)ans++;
+    }
+    cout << ans << endl;
     return 0;
 }

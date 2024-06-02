@@ -49,6 +49,12 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-
+    int n,l,r;
+    cin >> n >> l >> r;
+    vector<int>a(n);
+    rep(i,n)a[i]=i+1;
+    reverse(a.begin()+l-1,a.begin()+r);
+    rep(i,n)cout << a[i] << ' ';
+    cout << endl;
     return 0;
 }

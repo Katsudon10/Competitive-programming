@@ -49,6 +49,22 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-
+    int n,m;
+    cin >> n >> m;
+    vector<int>a(m);
+    rep(i,m)cin >> a[i];
+    vector<int>sum(m,0);
+    rep(i,n)rep(j,m){
+        int x;
+        cin >> x;
+        sum[j]+=x;
+    }
+    rep(i,m){
+        if(sum[i]<a[i]){
+            cout << "No" << endl;
+            return 0;    
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }

@@ -49,6 +49,8 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-
+    ll n,m;
+    cin >> n >> m;
+    
     return 0;
 }
