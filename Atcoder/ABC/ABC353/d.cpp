@@ -49,6 +49,33 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    
+    int n;
+    cin >> n;
+    vector<ll>a(n);
+    rep(i,n)cin >> a[i];
+    const ll mod=998244353;
+    ll ans=0;
+    rep(i,n){
+        ans+=a[i]*i%mod;
+        ans%=mod;    
+    }
+    vector<ll>b(n);
+    rep(i,n){
+        b[i]=1;
+        int x=a[i];
+        while(x){
+            b[i]*=10;
+            x/=10;
+        }
+    }
+
+    ll s=0;
+    for(int i=n-1;i>=0;i--){
+        ans+=s*a[i];
+        ans%=mod;
+        s+=b[i];
+        s%=mod;
+    }
+    cout << ans << endl;
     return 0;
 }   
