@@ -48,9 +48,31 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
+ll power(ll a,ll b,ll m){
+    ll p=a,ans=1;
+    rep(i,60){
+        ll w=(1LL<<i);
+        if(b&w){
+            ans=(ans*p)%m;
+        }
+        p=(p*p)%m;
+    }
+    return ans;
+}
+
 int main(){
     ll n,k;
     cin >> n >> k;
-    const int mod=1000000000+7;
+    const int mod=1000000007;
+    if(k==1){
+        if(n==1)cout << 1 << endl;
+        else cout << 0 << endl;
+    }else if(n==1){
+        cout << k%mod << endl;
+    }else if(n==2){
+        cout << k*(k-1)%mod << endl;
+    }else{
+        cout << k*(k-1)%mod*power(k-2,n-2,mod)%mod << endl;
+    }
     return 0;
 }
