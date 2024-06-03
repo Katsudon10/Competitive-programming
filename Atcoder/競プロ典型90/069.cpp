@@ -51,8 +51,7 @@ vector<int>dys={0,1,0,-1};
 ll power(ll a,ll b,ll m){
     ll p=a,ans=1;
     rep(i,60){
-        ll w=(1LL<<i);
-        if(b&w){
+        if(b&(1LL<<i)){
             ans=(ans*p)%m;
         }
         p=(p*p)%m;
