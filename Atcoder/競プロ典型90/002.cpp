@@ -47,45 +47,33 @@ vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
-
-void dfs(Graph &G,int v,vector<int> &dist){
-    for(int vs:G[v]){
-        if(dist[vs]==0){
-            dist[vs]=dist[v]+1;
-            dfs(G,vs,dist);
+bool check(string s){
+    stack<char>st;
+    for(char c:s){
+        if(c=='(')st.push('(');
+        else {
+            if(st.empty() || st.top()!='(')return false;
+            else st.pop();
         }
     }
+    if(!st.empty())return false;
+    return true;
 }
 
 int main(){
     int n;
     cin >> n;
-    Graph G(n);
-    rep(i,n-1){
-        int a,b;
-        cin >> a >> b;
-        a--,b--;
-        G[a].push_back(b);
-        G[b].push_back(a);
-    }
-
-    vector<int>dist(n,0);
-    dfs(G,0,dist);
-    int vs=-1,di=-1;
-    rep(i,n){
-        if(di<dist[i]){
-            vs=i;
-            di=dist[i];
+    for(int bit=0;bit<(1<<n);bit++){
+        string s;
+        for(int i=0;i<n;i++){
+            if(bit&(1<<i)){
+                s+=')';
+            }else{
+                s+='(';
+            }
         }
+        reverse(ALL(s));
+        if(check(s))cout << s << endl;
     }
-
-    dist=vector<int>(n,0);
-    dfs(G,vs,dist);
-
-    int ans=-1;
-    rep(i,n){
-        if(ans<dist[i])ans=dist[i];
-    }
-    cout << ans+1 << endl;
     return 0;
 }
