@@ -71,7 +71,7 @@ int main(){
     rep(i,n)cin >> a[i];
     int left=0,right=l;
     while(right-left>1){
-        int mid=(left+right)/2;
+        int mid=left+(right-left)/2;
         bool flag=check(a,k,l,mid);
         if(flag)left=mid;
         else right=mid;
