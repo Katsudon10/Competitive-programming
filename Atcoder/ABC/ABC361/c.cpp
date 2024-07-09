@@ -86,12 +86,12 @@ int main(){
     rep(i,n)cin >> a[i];
     sort(ALL(a));
     int s=0,b=n-1;
-    rep(i,k){
-        int a1=a[b]-a[s+1];
-        int a2=a[b-1]-a[s];
-        if(a1<a2)s++;
-        else b--;
+    int ans=inf;
+    rep(l,k+1){
+        int r=l+(n-k)-1;
+        int sub=a[r]-a[l];
+        ans=min(ans,sub);
     }
-    cout << a[b]-a[s] << endl;
+    cout << ans << endl;
     return 0;
 }
