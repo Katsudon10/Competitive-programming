@@ -84,5 +84,26 @@ int main(){
     string s;
     cin >> n >> s;
     
+    vector<vector<int>>dp(n+1,vector<int>(3,-inf));
+    rep(i,3)dp[0][i]=0;
+    for(int i=1;i<=n;i++){
+        int x=0;
+        if(s[i-1]=='R')x=0;
+        if(s[i-1]=='P')x=1;
+        if(s[i-1]=='S')x=2;
+
+        rep(j,3){
+            int val=0;
+            if(j==(x+1)%3)val=1;
+            if(j==(x+2)%3)continue;
+            rep(pj,3){
+                if(j==pj)continue;
+                dp[i][j]=max(dp[i][j],dp[i-1][pj]+val);
+            }
+        }
+    }
+    int ans=0;
+    rep(i,3)ans=max(ans,dp[n][i]);
+    cout << ans << endl;
     return 0;
 }
