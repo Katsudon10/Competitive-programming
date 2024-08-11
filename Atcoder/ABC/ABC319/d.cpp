@@ -50,8 +50,26 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,m;
     cin >> n >> m;
-    vector<int>l(n);
+    vector<ll>l(n);
     rep(i,n)cin >> l[i];
-    
+    rep(i,n)l[i]++;
+    ll left=*max_element(ALL(l))-1,right=0;
+    rep(i,n)right+=l[i];
+
+    while(right-left>1){
+        ll mid=(right+left)/2;
+        ll cnt=1,x=0;
+        rep(i,n){
+            if(x+l[i]>mid){
+                cnt++;
+                x=l[i];
+            }else{
+                x+=l[i];
+            }
+        }
+        if(cnt>m)left=mid;
+        else right=mid;
+    }
+    cout << right-1 << endl;
     return 0;
 }
