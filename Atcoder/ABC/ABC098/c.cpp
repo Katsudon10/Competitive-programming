@@ -83,24 +83,21 @@ int main(){
     int n;
     string s;
     cin >> n >> s;
-    vector<int>cnt(n,0);
+    vector<int>e(n,0),w(n,0);
     rep(i,n){
-        if(i==0){
-            if(s[i]=='E')cnt[i]++;
-        }else{
-            if(s[i]=='E'){
-                cnt[i]++;    
-            }
-            cnt[i]+=cnt[i-1];
-        }
+        if(s[i]=='E')e[i]++;
+        else w[i]++;
     }
-
+    for(int i=1;i<n;i++){
+        e[i]+=e[i-1];
+        w[i]+=w[i-1];
+    }
     int ans=inf;
     rep(i,n){
-        int w=i-cnt[i];
-        if(s[i]=='E')w++;
-        int e=cnt[n-1]-cnt[i];
-        ans=min(ans,w+e);
+        int wn=0;
+        if(i>0)wn=w[i-1];
+        int en=e[n-1]-e[i];
+        ans=min(ans,wn+en);
     }
     cout << ans << endl;
     return 0;
