@@ -78,25 +78,17 @@ vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
-int n,ans=0;
-void f(vector<int>a,int s){
-    if(s==n){
-        bool flag=false;
-        rep(i,n)if(a[i]%2==0)flag=true;
-        if(flag)ans++;
-    }else{
-        for(int i=-1;i<=1;i++){
-            a[s]+=i;
-            f(a,s+1);
-        }
-    }
-}
 
 int main(){
+    int n;
     cin >> n;
-    vector<int>a(n);
-    rep(i,n)cin >> a[i];
-    f(a,0);
-    cout << ans << endl;
+    int good=1,bad=1;
+    rep(i,n){
+        int a;
+        cin >> a;
+        good*=3;
+        if(a%2==0)bad*=2;
+    }
+    cout << good-bad << endl;
     return 0;
 }
