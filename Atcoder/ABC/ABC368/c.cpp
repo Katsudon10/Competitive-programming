@@ -86,20 +86,13 @@ int main(){
     rep(i,n)cin >> h[i];
     ll t=0;
     rep(i,n){
-        if((t+1)%3==0){
-            t++;
-            h[i]-=min((ll)3,h[i]);
-        }else if((t+2)%3==0){
-            if(h[i]>1){
-                t+=2;
-                h[i]-=min(4LL,h[i]);
-            }else{
-                t++;
-                h[i]=0;
-            }
-        }
         t+=h[i]/5*3;
-        t+=h[i]%5;
+        h[i]%=5;
+        while(h[i]>0){
+            t++;
+            if(t%3==0)h[i]-=3;
+            else h[i]--;
+        }
     }
     cout << t << endl;
     return 0;
