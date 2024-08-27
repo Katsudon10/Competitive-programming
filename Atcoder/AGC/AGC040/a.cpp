@@ -88,7 +88,7 @@ int main(){
         if(s[i]=='<')a[i+1]=max(a[i+1],a[i]+1);
     }
     for(int i=n;i>0;i--){
-        if(s[i]=='>')a[i-1]=max(a[i-1],a[i]+1);
+        if(s[i-1]=='>')a[i-1]=max(a[i-1],a[i]+1);
     }
     ll ans=0;
     rep(i,n+1)ans+=a[i];
