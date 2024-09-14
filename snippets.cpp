@@ -73,6 +73,9 @@ class SegmentTree{
    }
 };
 
+template<typename T> bool chmin(T& a, T b){if(a > b){a = b; return true;} return false;}
+template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return false;}
+
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
