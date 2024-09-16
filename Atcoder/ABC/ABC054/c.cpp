@@ -81,29 +81,40 @@ vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
+int n,m;
+
+void dfs(int v,Graph g,vector<bool>seen,int &ans){
+    seen[v]=true;
+    int cnt=0;
+    rep(i,n)if(seen[i])cnt++;
+    if(cnt==n){
+        ans++;
+        return;
+    }
+
+    for(int vs:g[v]){
+        if(seen[vs])continue;
+        dfs(vs,g,seen,ans);
+    }
+    return;
+}
 
 int main(){
-    int n,m;
     cin >> n >> m;
-    vector<vector<bool>>g(n,vector<bool>(n,false));
+    
+    Graph g(n);
     rep(i,m){
         int a,b;
         cin >> a >> b;
         a--,b--;
-        g[a][b]=g[b][a]=true;
+        g[a].push_back(b);
+        g[b].push_back(a);
     }
 
-    vector<int>v(n);
-    rep(i,n)v[i]=i;
     int ans=0;
-    do{
-        bool flag=true;
-        if(v[0]!=0)break;
-        rep(i,n-1){
-            if(!g[v[i]][v[i+1]])flag=false;
-        }
-        if(flag)ans++;
-    }while(next_permutation(ALL(v)));
+    vector<bool>seen(n,false);
+    seen[0]=true;
+    dfs(0,g,seen,ans);
     cout << ans << endl;
     return 0;
 }
