@@ -28,8 +28,8 @@ int main(){
     rep(i,m)tmp[t[i]]++;
 
     int ans=0;
-    for(auto it=smp.begin();it!=smp.end();it++){
-        ans=max(ans,it->second-tmp[it->first]);
+    for(auto p:smp){
+        ans=max(ans,smp[p.first]-tmp[p.first]);
     }
     cout << ans << endl;
     return 0;
