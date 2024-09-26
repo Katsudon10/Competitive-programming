@@ -58,16 +58,15 @@ int main(){
     rep(i,n)x[i]+1e9;
     rep(i,n){
         if(s[i]=='0')x1.push_back(x[i]);
-        else x2.push_back(-1*(x[i]));
+        else x2.push_back(x[i]);
     }
-
+    sort(ALL(x1));
+    sort(ALL(x2));
     ll ans=0;
-    rep(i,n){
-        if(s[i]=='1'){
-            int v1=lower_bound(ALL(x1),2*t+x[i])-x1.begin();
-            int v2=lower_bound(ALL(x1),x[i])-x1.begin();
-            ans+=v1-v2+1;
-        }
+    for(ll i:x2){
+        int l=lower_bound(ALL(x1),i)-x1.begin();
+        int r=upper_bound(ALL(x1),i+2LL*t)-x1.begin();
+        ans+=r-l;
     }
     cout << ans << endl;
     return 0;
