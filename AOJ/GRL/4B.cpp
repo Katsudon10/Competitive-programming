@@ -91,8 +91,8 @@ int main(){
     rep(i,m){
         int x,y;
         cin >> x >> y;
-        g[y].push_back(x);
-        deg[x]++;
+        g[x].push_back(y);
+        deg[y]++;
     }
 
     queue<int>que;
@@ -107,7 +107,6 @@ int main(){
             if(deg[vs]==0)que.push(vs);
         }
     }
-    reverse(ALL(order));
     for(int v:order)cout << v << endl;
     return 0;
 }
