@@ -82,21 +82,8 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
-ll dfs(vector<int> v,vector<int> a,vector<int> b,vector<int> c,vector<int> d,int i,int x,int y,ll di,int s){
-    if(i==v.size())return di;
-    double dx=a[v[i]]-x,dy=b[v[i]]-y;
-    double ds1=sqrt(dx*dx+dy*dy)/s;
-    ll d2=dfs(v,a,b,c,d,i+1,c[v[i]],d[v[i]],di+ds1,s);
-
-    dx=c[v[i]]-x,dy=d[v[i]]-y;
-    double ds2=sqrt(dx*dx+dy*dy)/s;
-    ll d1=dfs(v,a,b,c,d,i+1,a[v[i]],b[v[i]],di+ds2,s);
-    return min(d1,d2);
-}
-
 int main(){
-    int n;
-    double s,t;
+    int n,s,t;
     cin >> n >> s >> t;
     vector<int>a(n),b(n),c(n),d(n);
 
@@ -104,17 +91,33 @@ int main(){
         cin >> a[i] >> b[i] >> c[i] >> d[i];
     }
 
-    double ans=INF;
-    rep(i,n){
-        double nx=c[i]-a[i],ny=d[i]-b[i];
-        ans+=sqrt(nx*nx+ny*ny)*1.0/t;
-    }
+    double ans=inf;
     
     vector<int>v(n);
     rep(i,n)v[i]=i;
+    double dist=0;
+    rep(i,n){
+        double dx=a[i]-c[i],dy=b[i]-d[i];
+        dist+=sqrt(dx*dx+dy*dy)*1.0/t;
+    }
 
     do{
-        ans+=dfs(v,a,b,c,d,0,0,0,s);
+        for(int bit=0;bit<(1<<n);bit++){
+            double ts=dist;
+            int x=0,y=0;
+            double dx,dy;
+            rep(i,n){
+                if(bit&(1<<i)){
+                    dx=x-a[v[i]],dy=y-b[v[i]];
+                    x=c[v[i]],y=d[v[i]];
+                }else{
+                    dx=x-c[v[i]],dy=y-d[v[i]];
+                    x=a[v[i]],y=b[v[i]];
+                }
+                ts+=sqrt(dx*dx+dy*dy)*1.0/s;
+            }
+            chmin(ans,ts);
+        }
     }while(next_permutation(ALL(v)));
     cout << fixed << setprecision(10) << ans << endl;
     return 0;
