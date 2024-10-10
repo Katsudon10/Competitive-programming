@@ -11,6 +11,7 @@ struct Edge{
     ll cost;
     Edge(int to,ll cost):to(to),cost(cost){}
 };
+using kEdge = pair<int,pair<int,int>>;
 using Graph = vector<vector<int>>;
 using WeightedGraph = vector<vector<Edge>>;
 
@@ -83,6 +84,6 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-
+    
     return 0;
 }
