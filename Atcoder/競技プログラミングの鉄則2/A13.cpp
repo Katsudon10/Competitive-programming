@@ -89,7 +89,7 @@ int main(){
     vector<int>a(n);
     rep(i,n)cin >> a[i];
 
-    vector<int>d(n,-1);
+    vector<int>d(n-1,0);
     rep(i,n-1){
         if(i==0)d[i]=0;
         else d[i]=d[i-1];
