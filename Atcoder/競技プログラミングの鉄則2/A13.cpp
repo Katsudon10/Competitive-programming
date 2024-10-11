@@ -89,16 +89,12 @@ int main(){
     vector<int>a(n);
     rep(i,n)cin >> a[i];
 
-    vector<int>d(n-1,0);
-    rep(i,n-1){
-        if(i==0)d[i]=0;
-        else d[i]=d[i-1];
-
-        while(d[i]<n-1 && a[d[i]+1]-a[i]<=k)d[i]++;
-    }
     ll ans=0;
-    rep(i,n-1){
-        ans+=d[i]-i;
+    int right=0;
+    rep(left,n){
+        while(right<n && a[right]-a[left]<=k)right++;
+        ans+=(right-left-1);
+        if(right==left)right++;
     }
     cout << ans << endl;
     return 0;
