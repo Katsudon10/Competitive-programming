@@ -87,22 +87,29 @@ int main(){
     int t;
     cin >> t;
     
-    rep(qi,t){
+    rep(ti,t){
         int n,k;
         cin >> n >> k;
         vector<pair<ll,ll>>p(n);
-        vector<ll>a(n),b(n);
-        rep(i,n)cin >> a[i];
-        rep(i,n)cin >> b[i];
-        rep(i,n)p[i]=make_pair(b[i],a[i]);
+        rep(i,n)cin >> p[i].first;
+        rep(i,n)cin >> p[i].second;
+        
         sort(ALL(p));
-        ll mx=0;
-        ll s=0;
-        rep(i,k){
-            chmax(mx,p[i].second);
-            s+=p[i].first;
+        priority_queue<int>que;
+        
+        ll ans=INF;
+        ll sum=0;
+        rep(i,n){
+            if(que.size()==k-1){
+                chmin(ans,p[i].first*(sum+p[i].second));
+            }
+            sum+=p[i].second;
+            que.push(p[i].second);
+            if(que.size()==k){
+                sum-=que.top();
+                que.pop();
+            }
         }
-        ll ans=1LL*mx*s;
         cout << ans << endl;
     }
     return 0;
