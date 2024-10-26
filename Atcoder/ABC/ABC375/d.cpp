@@ -86,15 +86,14 @@ vector<int>dys={0,1,0,-1};
 int main(){
     string s;
     cin >> s;
-    map<char,int>mp
-
-    vector<vector<int>>v(26,vector<int>(n,0));
-    for(int i=n-1;i>=0;i--){
-        if(i+1<n)v[s[i]-'a'][i]=v[s[i]-'a'][i+1]+1;
-    }
-
+    vector<int>l(26),r(26);
+    for(char c:s)r[c-'A']++;
     ll ans=0;
-    int n=s.size();
+    rep(j,s.size()){
+        r[s[j]-'A']--;
+        rep(c,26)ans+=1LL*l[c]*r[c];
+        l[s[j]-'A']++;
+    }
     cout << ans << endl;
     return 0;
 }
