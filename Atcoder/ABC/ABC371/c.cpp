@@ -85,15 +85,15 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n;
     cin >> n;
-    Graph g(n),h(n);
+    vector<vector<bool>>g(n,vector<bool>(n,false)),h(n,vector<bool>(n,false));
     int mg;
     cin >> mg;
     rep(i,mg){
         int u,v;
         cin >> u >> v;
         u--,v--;
-        g[u].push_back(v);
-        g[v].push_back(u);
+        g[u][v]=true;
+        g[v][u]=true;
     }
 
     int mh;
@@ -102,28 +102,28 @@ int main(){
         int a,b;
         cin >> a >> b;
         a--,b--;
-        h[a].push_back(b);
-        h[b].push_back(a);
+        h[a][b]=true;
+        h[b][a]=true;
     }
 
-    vector<vector<int>>a(n-1,vector<int>(n,0));
+    vector<vector<int>>a(n,vector<int>(n,0));
     rep(i,n-1){
-        for(int j=i+1;j<n;j++)cin >> a[i][j];
+        for(int j=i+1;j<n;j++){
+            cin >> a[i][j];
+            a[j][i]=a[i][j];
+        }
     }
 
-    ll ans=inf;
-    vector<int>ver(n);
-    rep(i,n)ver[i]=i;
+    vector<int>v(n);
+    rep(i,n)v[i]=i;
+    int ans=inf;
     do{
-        ll cnt=0;
-        rep(i,n){
-            int v=ver[i];
-            for(int vg:g[v]){
-                
-            }
+        int sum=0;
+        rep(i,n)rep(j,i){
+            if(h[i][j]!=g[v[i]][v[j]])sum+=a[i][j];
         }
-        ans=min(ans,cnt);
-    }while(next_permutation(ALL(ver)));
+        ans=min(ans,sum);
+    }while(next_permutation(ALL(v)));
     cout << ans << endl;
     return 0;
 }
