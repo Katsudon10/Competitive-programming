@@ -78,10 +78,10 @@ vector<int>dys={0,1,0,-1};
 
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
-ll f(ll n){
-    ll v=1;
-    for(ll i=1;i<=n;i++)v*=i;
-    return v;
+
+bool check(vector<int> &a,int l,int r){
+    if(r-l<=2)return true;
+    return a[r-1]-a[r-2]==a[r-2]-a[r-3];
 }
 
 int main(){
@@ -90,18 +90,12 @@ int main(){
     vector<int>a(n);
     rep(i,n)cin >> a[i];
 
-    vector<int>d(n);
-    rep(i,n-1){
-        d[i]=a[i+1]-a[i];
-    }
-
     ll ans=0;
-    rep(i,n-1){
-        int dt=d[i];
-        int v=i;
-        while(i<n-1 && dt==d[i])i++;
-        int t=i-v+1;
-        ans+=t*(t-1)/2;
+    int right=0;
+    for(int left=0;left<n;left++){
+        while(right<n && check(a,left,right+1))right++;
+        ans+=(right-left);
+        if(right==left)right++;
     }
     cout << ans << endl;
     return 0;
