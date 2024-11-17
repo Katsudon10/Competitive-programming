@@ -89,9 +89,21 @@ int main(){
     cin >> s >> q;
     vector<ll>k(q);
     rep(i,q)cin >> k[i];
+    rep(i,q)k[i]--;
 
-    
+    auto flip = [&](char c)->char{
+        if(isupper(c))return tolower(c);
+        else return toupper(c);
+    };
 
-    
+    rep(i,q){
+        ll n=k[i]/s.size(),m=k[i]%s.size();
+        int cnt=0;
+        rep(j,61)if(n&(1LL<<j))cnt++;
+        char ans=s[m];
+        if(cnt%2==1)ans=flip(ans);
+        cout << ans << ' ';
+    }
+    cout << endl;
     return 0;
 }
