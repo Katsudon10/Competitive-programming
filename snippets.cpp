@@ -4,7 +4,7 @@ using namespace std;
 #define ALL(a)  (a).begin(),(a).end()
 const int inf = INT_MAX;
 using ll = long long;
-const ll INF = 1e18;
+const ll INF = 9e18;
 using P = pair<int,int>;
 struct Edge{
     int to;
