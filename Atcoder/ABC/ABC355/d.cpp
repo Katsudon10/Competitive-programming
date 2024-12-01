@@ -4,13 +4,14 @@ using namespace std;
 #define ALL(a)  (a).begin(),(a).end()
 const int inf = INT_MAX;
 using ll = long long;
-const ll INF = 1e18;
+const ll INF = 9e18;
 using P = pair<int,int>;
 struct Edge{
     int to;
     ll cost;
     Edge(int to,ll cost):to(to),cost(cost){}
 };
+using kEdge = pair<int,pair<int,int>>;
 using Graph = vector<vector<int>>;
 using WeightedGraph = vector<vector<Edge>>;
 
@@ -42,6 +43,40 @@ struct UnionFind{
        return siz[root(x)];
    }
 };
+
+class SegmentTree{
+   public:
+   vector<int>dat;
+   int siz=1;
+
+   void init(int N){
+       siz=1;
+       while(siz<N)siz*=2;
+       dat=vector<int>(2*siz,0);
+   }
+
+   void update(int pos,int x){
+       pos=pos+siz-1;
+       dat[pos]=x;
+       while(pos>=2){
+           pos/=2;
+           dat[pos]=max(dat[pos*2],dat[pos*2+1]);
+       }
+   }
+
+   int query(int l,int r,int a,int b,int u){
+       if(r<=a || b<=l)return -100000000;
+       if(l<=a && b<=r)return dat[u];
+       int m=(a+b)/2;
+       int AnsL=query(l,r,a,m,u*2);
+       int AnsR=query(l,r,m,b,u*2+1);
+       return max(AnsL,AnsR);
+   }
+};
+
+template<typename T> bool chmin(T& a, T b){if(a > b){a = b; return true;} return false;}
+template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return false;}
+
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
@@ -51,11 +86,18 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n;
     cin >> n;
+    vector<P>v(n);
+    rep(i,n)cin >> v[i].first >> v[i].second;
 
+    sort(ALL(v));
+    vector<int>l(n);
+    rep(i,n)l[i]=v[i].first;
+
+    ll ans=0;
     rep(i,n){
-        int l,r;
-        cin >> l >> r;
-        
+        int j=upper_bound(ALL(l),v[i].second)-l.begin()-1;
+        ans+=j-i;
     }
+    cout << ans << endl;
     return 0;
 }
