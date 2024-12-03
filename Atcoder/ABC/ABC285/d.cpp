@@ -99,7 +99,7 @@ int main(){
         while(!st.count(vs)){
             st.insert(vs);
             auto it=mp.find(vs);
-            if(it!=mp.end())break;
+            if(it==mp.end())break;
             vs=it->second;
             if(v==vs){
                 cout << "No" << endl;
