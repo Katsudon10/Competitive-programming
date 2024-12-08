@@ -83,33 +83,40 @@ vector<int>dys={0,1,0,-1};
 //fixed << setprecision(10)
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
-int h,w,d;
-void dfs(vector<string> &s,vector<vector<bool>> &g,int x,int y,int cnt){
-    if(cnt>d)return;
-    g[x][y]=true;
-    rep(i,4){
-        int nx=x+dxs[i],ny=y+dys[i];
-        if(nx>=0 && nx<h && ny>=0 && ny<w && s[nx][ny]=='.'){
-            dfs(s,g,nx,ny,cnt+1);
-        }
-    }
-
-}
-
 int main(){
+    int h,w,d;
     cin >> h >> w >> d;
     vector<string>s(h);
     rep(i,h)cin >> s[i];
 
-    vector<vector<bool>>g(h,vector<bool>(w,false));
+    vector<vector<int>>dist(h,vector<int>(w,-1));
+    queue<P>que;
     rep(i,h)rep(j,w){
         if(s[i][j]=='H'){
-            dfs(s,g,i,j,0);
+            que.emplace(i,j);
+            dist[i][j]=0;
+        }
+    }
+
+    while(!que.empty()){
+        int x=que.front().first,y=que.front().second;
+        que.pop();
+        if(dist[x][y]==d)continue;
+        rep(i,4){
+            int nx=x+dxs[i],ny=y+dys[i];
+            if(nx>=0 && nx<h && ny>=0 && ny<w && s[nx][ny]=='.'){
+                if(dist[nx][ny]==-1){
+                    dist[nx][ny]=dist[x][y]+1;
+                    que.emplace(nx,ny);
+                }else if(chmin(dist[nx][ny],dist[x][y]+1)){
+                    que.emplace(nx,ny);
+                }
+            }
         }
     }
 
     int ans=0;
-    rep(i,h)rep(j,w)if(g[i][j])ans++;
+    rep(i,h)rep(j,w)if(dist[i][j]!=-1)ans++;
     cout << ans << endl;
     return 0;
 }
