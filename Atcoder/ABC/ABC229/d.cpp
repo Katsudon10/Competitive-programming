@@ -98,7 +98,8 @@ int main(){
             right++;
         }
         chmax(ans,right-left);
-        if(s[left]=='.')cnt--;
+        if(right==left)right++;
+        else if(s[left]=='.')cnt--;
     }
     cout << ans << endl;
     return 0;
