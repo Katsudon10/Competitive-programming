@@ -88,44 +88,21 @@ int main(){
     string s;
     cin >> n >> s;
 
-    vector<ll>r(n+1,0),g(n+1,0),b(n+1,0);
-    rep(i,n){
-        r[i+1]=r[i];
-        g[i+1]=g[i];
-        b[i+1]=b[i];
-        if(s[i]=='R')r[i+1]++;
-        else if(s[i]=='G')g[i+1]++;
-        else if(s[i]=='B')b[i+1]++;
+    ll r=0,g=0,b=0;
+    for(char c:s){
+        if(c=='R')r++;
+        else if(c=='G')g++;
+        else b++;
     }
-    ll ans=0;
-    rep(i,n){
-        for(int j=i+1;j<n;j++){
+    
+    ll ans=r*g*b;
+    rep(j,n)rep(i,j){
+        int k=j+(j-i);
+        if(k<n){
             if(s[i]==s[j])continue;
-            if(s[i]=='R' && s[j]=='G'){
-                ans+=b[n]-b[j];
-                int d=j-i;
-                if(j+d<n && s[j+d]=='B')ans--;
-            }else if(s[i]=='R' && s[j]=='B'){
-                ans+=g[n]-g[j];
-                int d=j-i;
-                if(j+d<n && s[j+d]=='G')ans--;
-            }else if(s[i]=='B' && s[j]=='G'){
-                ans+=r[n]-r[j];
-                int d=j-i;
-                if(j+d<n && s[j+d]=='R')ans--;
-            }else if(s[i]=='B' && s[j]=='R'){
-                ans+=g[n]-g[j];
-                int d=j-i;
-                if(j+d<n && s[j+d]=='G')ans--;
-            }else if(s[i]=='G' && s[j]=='R'){
-                ans+=b[n]-b[j];
-                int d=j-i;
-                if(j+d<n && s[j+d]=='B')ans--;
-            }else if(s[i]=='G' && s[j]=='B'){
-                ans+=r[n]-r[j];
-                int d=j-i;
-                if(j+d<n && s[j+d]=='R')ans--;
-            }
+            if(s[i]==s[k])continue;
+            if(s[j]==s[k])continue;
+            ans--;
         }
     }
     cout << ans << endl;
