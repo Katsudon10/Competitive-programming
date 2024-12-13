@@ -4,13 +4,14 @@ using namespace std;
 #define ALL(a)  (a).begin(),(a).end()
 const int inf = INT_MAX;
 using ll = long long;
-const ll INF = 1e18;
+const ll INF = 9e18;
 using P = pair<int,int>;
 struct Edge{
     int to;
     ll cost;
     Edge(int to,ll cost):to(to),cost(cost){}
 };
+using kEdge = pair<int,pair<int,int>>;
 using Graph = vector<vector<int>>;
 using WeightedGraph = vector<vector<Edge>>;
 
@@ -73,6 +74,9 @@ class SegmentTree{
    }
 };
 
+template<typename T> bool chmin(T& a, T b){if(a > b){a = b; return true;} return false;}
+template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return false;}
+
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
@@ -82,8 +86,24 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n;
     cin >> n;
-    vector<vector<vector<int>>>a(n,vector<vector<int>>(n));
+    vector<vector<vector<int>>>a(n,vector<vector<int>>(n,vector<int>(n)));
     rep(i,n)rep(j,n)rep(k,n)cin >> a[i][j][k];
-    
+
+    vector<vector<vector<int>>>sum(n+1,vector<vector<int>>(n+1,vector<int>(n+1,0)));
+    rep(i,n)rep(j,n)rep(k,n)
+    sum[i+1][j+1][k+1] = sum[i][j+1][k+1] + sum[i+1][j][k+1] + sum[i+1][j+1][k]
+                        - sum[i][j][k+1] - sum[i][j+1][k] - sum[i+1][j][k]
+                        + sum[i][j][k] + a[i][j][k];
+
+
+    int q;
+    cin >> q;
+    rep(i,q){
+        int lx,rx,ly,ry,lz,rz;
+        cin >> lx >> rx >> ly >> ry >> lz >> rz;
+        lx--,ly--,lz--;
+        cout << sum[rx][ry][rz]-sum[lx][ry][rz]-sum[rx][ly][rz]-sum[rx][ry][lz]+sum[lx][ly][rz]+sum[lx][ry][lz]+sum[rx][ly][lz]-sum[lx][ly][lz] << endl;
+    }
+
     return 0;
 }
