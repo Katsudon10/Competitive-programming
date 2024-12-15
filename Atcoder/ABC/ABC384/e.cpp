@@ -93,38 +93,34 @@ int main(){
 
     p--,q--;
     ll ans=s[p][q];
-    set<P>st;
+    priority_queue<pair<ll,P>,vector<pair<ll,P>>,greater<>>que;
     rep(i,4){
         int nx=p+dxs[i],ny=q+dys[i];
         if(nx>=0 && nx<h && ny>=0 && ny<w){
-            st.emplace(nx,ny);
+            que.emplace(s[nx][ny],P(nx,ny));
         }
     }
     vector<vector<bool>>seen(h,vector<bool>(w,false));
     seen[p][q]=true;
 
-    while(true){
-        bool flag=false;
-        vector<P>used;
-        for(auto v:st){
-            int a=v.first,b=v.second;
-            if(1LL*s[a][b]*x<ans){
-                ans+=s[a][b];
-                used.push_back(v);
-                flag=true;
-                rep(i,4){
-                    int nx=a+dxs[i],ny=b+dys[i];
-                    if(nx>=0 && nx<h && ny>=0 && ny<w){
-                        if(seen[nx][ny])continue;
-                        st.emplace(nx,ny);
-                    }
+    while(!que.empty()){
+        ll d=que.top().first;
+        P v=que.top().second;
+        que.pop();
+        int a=v.first,b=v.second;
+        if(seen[a][b])continue;
+        if(d<(ans+x-1)/x){
+            ans+=d;
+            seen[a][b]=true;
+            rep(i,4){
+                int nx=a+dxs[i],ny=b+dys[i];
+                if(nx>=0 && nx<h && ny>=0 && ny<w && !seen[nx][ny]){
+                    que.emplace(s[nx][ny],P(nx,ny));
                 }
             }
+        }else{
+            break;
         }
-        for(auto v:used){
-            st.erase(v);
-        }
-        if(!flag)break;
     }
     cout << ans << endl;
     return 0;
