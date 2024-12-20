@@ -86,23 +86,28 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,m;
     cin >> n >> m;
-    vector<ll>x(m),a(m);
-    rep(i,m)cin >> x[i];
-    rep(i,m)cin >> a[i];
-    if(x[0]!=1){
+    vector<P>p(m);
+    rep(i,m)cin >> p[i].first;
+    rep(i,m)cin >> p[i].second;
+    
+    ll sum=0;
+    rep(i,m)sum+=p[i].second;
+    if(sum!=n){
         cout << -1 << endl;
         return 0;
     }
-    ll ans=0;
-    int pre=n;
-    rep(i,m-1){
-        int v=pre-x[i];
-        if(a[i]>v){
+
+    sort(ALL(p));
+    ll cur=1;
+    sum=0;
+    for(auto v:p){
+        if(v.first>cur){
             cout << -1 << endl;
             return 0;
         }
-        ans+=1LL*v*(v+1)/2;
+        cur+=v.second;
+        sum+=1LL*v.first*v.second;
     }
-    cout << ans << endl;
+    cout << 1LL*n*(n+1)/2-sum << endl;
     return 0;
 }
