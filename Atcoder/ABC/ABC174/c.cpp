@@ -98,6 +98,6 @@ int main(){
         n=(n*10+7)%k;
         ans++;
     }
-    cout << ans << endl;
+    cout << -1 << endl;
     return 0;
 }
