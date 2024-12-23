@@ -4,13 +4,14 @@ using namespace std;
 #define ALL(a)  (a).begin(),(a).end()
 const int inf = INT_MAX;
 using ll = long long;
-const ll INF = 1e18;
+const ll INF = 9e18;
 using P = pair<int,int>;
 struct Edge{
     int to;
     ll cost;
     Edge(int to,ll cost):to(to),cost(cost){}
 };
+using kEdge = pair<int,pair<int,int>>;
 using Graph = vector<vector<int>>;
 using WeightedGraph = vector<vector<Edge>>;
 
@@ -73,6 +74,9 @@ class SegmentTree{
    }
 };
 
+template<typename T> bool chmin(T& a, T b){if(a > b){a = b; return true;} return false;}
+template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return false;}
+
 vector<int>dxs={1,0,-1,0};
 vector<int>dys={0,1,0,-1};
 
@@ -82,26 +86,32 @@ vector<int>dys={0,1,0,-1};
 int main(){
     int n,k;
     cin >> n >> k;
-    vector<int>par(n,-1);
+    Graph g(n);
     rep(i,n-1){
         int a,b;
         cin >> a >> b;
         a--,b--;
-        par[b]=a;
+        g[a].push_back(b);
+        g[b].push_back(a);
     }
     vector<int>v(k);
-    rep(i,k){
-        cin >> v[i];
-        v[i]--;
-    }
-    set<int>st;
-    rep(i,k){
-        int vs=v[i];
-        while(par[vs]!=-1){
-            st.insert(vs);
-            vs=par[vs];
+    rep(i,k)cin >> v[i];
+    rep(i,k)v[i]--;
+    vector<bool>flag(n,false);
+    rep(i,k)flag[v[i]]=true;
+
+    vector<int>num(n,0);
+    auto dfs=[&](auto dfs,int v,int p=-1)->void{
+        if(flag[v])num[v]++;
+        for(int vs:g[v]){
+            if(vs==p)continue;
+            dfs(dfs,vs,v);
+            num[v]+=num[vs];
         }
-    }
-    cout << st.size()+1 << endl;
+    };
+    dfs(dfs,v[0]);
+    int ans=0;
+    rep(i,n)if(num[i]>0)ans++;
+    cout << ans << endl;
     return 0;
 }
