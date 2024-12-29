@@ -94,7 +94,7 @@ int main(){
     }else if(n==m){
         int cnt=0;
         rep(i,n)if(s[i]!=t[i])cnt++;
-        if(cnt==1){
+        if(cnt<=1){
             cout << "Yes" << endl;
             return 0;
         }
@@ -103,17 +103,11 @@ int main(){
             swap(n,m);
             swap(s,t);
         }
-        int i=0,j=0,cnt=0;
-        while(i<n && j<m){
-            if(s[i]==t[j]){
-                i++;
-                j++;
-            }else{
-                cnt++;
-                j++;
-            }
-        }
-        if(cnt==1){
+        int l=0,r=0;
+        while(l<n && s[l]==t[l])l++;
+        while(r<n && s[n-r-1]==t[m-r-1])r++;
+
+        if(l+r>=n){
             cout << "Yes" << endl;
             return 0;
         }
