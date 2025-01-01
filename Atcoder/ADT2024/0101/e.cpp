@@ -84,15 +84,19 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    ll sx,sy,tx,ty;
-    cin >> sx >> sy >> tx >> ty;
-    if((sx+sy)%2==1)sx--;
-    if((tx+ty)%2==1)tx--;
-    ll x=abs(sx-tx),y=abs(sy-ty);
+    ll n,x;
+    cin >> n >> x;
+    vector<ll>a(n);
+    rep(i,n)cin >> a[i];
 
-    ll ans=0;
-    if(x<y)ans=y;
-    else ans=(x+y)/2;
-    cout << ans << endl;
+    sort(ALL(a));
+    rep(j,n){
+        int i=lower_bound(ALL(a),x+a[j])-a.begin();
+        if(a[i]-a[j]==x){
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+    cout << "No" << endl;
     return 0;
 }

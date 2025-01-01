@@ -84,15 +84,14 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    ll sx,sy,tx,ty;
-    cin >> sx >> sy >> tx >> ty;
-    if((sx+sy)%2==1)sx--;
-    if((tx+ty)%2==1)tx--;
-    ll x=abs(sx-tx),y=abs(sy-ty);
-
-    ll ans=0;
-    if(x<y)ans=y;
-    else ans=(x+y)/2;
-    cout << ans << endl;
+    int l,r;
+    cin >> l >> r;
+    if(l==1 && r==0){
+        cout << "Yes" << endl;
+    }else if(l==0 && r==1){
+        cout << "No" << endl;
+    }else{
+        cout << "Invalid" << endl;
+    }  
     return 0;
 }
