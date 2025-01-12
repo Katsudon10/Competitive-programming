@@ -89,22 +89,17 @@ int main(){
     vector<int>a(n);
     rep(i,n)cin >> a[i];
 
-    set<int>st;
-    map<int,int>mp;
-    rep(i,n)mp[a[i]]++;
-    rep(i,n)st.insert(a[i]);
-    reverse(ALL(a));
+    multiset<int>st;
+    for(int i=n/2;i<n;i++){
+        st.insert(a[i]);
+    }
 
     int ans=0;
-    rep(i,n){
-        auto it=st.lower_bound(2*a[i]);
-        if(it==st.end())continue;
+    rep(i,n/2){
+        auto it=st.lower_bound(a[i]*2);
+        if(it==st.end())break;
         ans++;
-        mp[a[i]]--;
-        if(mp[a[i]]==0)st.erase(a[i]);
-        int v=*it;
-        mp[v]--;
-        if(mp[v]==0)st.erase(v);
+        st.erase(it);
     }
     cout << ans << endl;
     return 0;
