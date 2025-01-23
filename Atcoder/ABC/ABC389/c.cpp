@@ -79,9 +79,7 @@ int main(){
     int q;
     cin >> q;
     deque<ll>que;
-    queue<int>dist;
     ll sum=0;
-    ll dec=0;
     rep(qi,q){
         int query;
         cin >> query;
@@ -89,17 +87,14 @@ int main(){
             int l;
             cin >> l;
             que.push_back(sum);
-            dist.push(l);
             sum+=l;
         }else if(query==2){
-            dec+=dist.front();
-            dist.pop();
             que.pop_front();
         }else{
             int k;
             cin >> k;
             k--;
-            cout << que[k]-dec << endl;
+            cout << que[k]-que[0] << endl;
         }
     }   
     return 0;
