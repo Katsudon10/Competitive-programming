@@ -1,28 +1,105 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define rep(i,n) for(int i=0;i<n;++i)
+#define ALL(a)  (a).begin(),(a).end()
 const int inf = INT_MAX;
 using ll = long long;
-//fixed << setprecision(5)
+const ll INF = 1e18;
+using P = pair<int,int>;
+struct Edge{
+    int to;
+    ll cost;
+    Edge(int to,ll cost):to(to),cost(cost){}
+};
+using kEdge = pair<int,pair<int,int>>;
+using Graph = vector<vector<int>>;
+using WeightedGraph = vector<vector<Edge>>;
+
+
+struct UnionFind{
+   vector<int> par,rank,siz;
+   UnionFind(int n) : par(n,-1),rank(n,0),siz(n,1){ }
+
+   int root(int x){
+       if(par[x]==-1)return x;
+       else return par[x]=root(par[x]);
+   }
+
+   bool issame(int x,int y){
+       return root(x)==root(y);
+   }
+
+   bool unite(int x,int y){
+       int rx=root(x),ry=root(y);
+       if(rx==ry)return false;
+       if(rank[rx]<rank[ry])swap(rx,ry);
+       par[ry]=rx;
+       if(rank[rx]==rank[ry])rank[rx]++;
+       siz[rx]+=siz[ry];
+       return true;
+   }
+
+   int size(int x){
+       return siz[root(x)];
+   }
+};
+
+class SegmentTree{
+   public:
+   vector<int>dat;
+   int siz=1;
+
+   void init(int N){
+       siz=1;
+       while(siz<N)siz*=2;
+       dat=vector<int>(2*siz,0);
+   }
+
+   void update(int pos,int x){
+       pos=pos+siz-1;
+       dat[pos]=x;
+       while(pos>=2){
+           pos/=2;
+           dat[pos]=max(dat[pos*2],dat[pos*2+1]);
+       }
+   }
+
+   int query(int l,int r,int a,int b,int u){
+       if(r<=a || b<=l)return -100000000;
+       if(l<=a && b<=r)return dat[u];
+       int m=(a+b)/2;
+       int AnsL=query(l,r,a,m,u*2);
+       int AnsR=query(l,r,m,b,u*2+1);
+       return max(AnsL,AnsR);
+   }
+};
+
+template<typename T> bool chmin(T& a, T b){if(a > b){a = b; return true;} return false;}
+template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return false;}
+
+vector<int>dxs={1,0,-1,0};
+vector<int>dys={0,1,0,-1};
+
+//fixed << setprecision(10)
+//A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    double a,b;
+    ll a,b;
     cin >> a >> b;
-    bool flag=true;
-    double num=1e18;
-    double i=0;
-    double g=1;
-    while(flag){
-        double n=1.0*i+(double)(a/sqrt(g));
-        cout << n << endl;
-        if(num>=n){
-            num=n;
-        }else{
-            flag=false;
-        }
-        i+=b;
-        g++;
+
+    ll l=0,r=INF;
+    auto f=[&](ll x)->double{
+        double res=a/sqrt(1+x)+(double)x*b;
+        return res;
+    };
+
+    while(r-l>2){
+        ll c1=(l*2+r)/3;
+        ll c2=(l+r*2)/3;
+        if(f(c1)<f(c2))r=c2;else l=c1;
     }
-    cout << fixed << setprecision(10) << num << endl;
+
+    double ans=min({f(l),f(l+1),f(r)});
+    cout << fixed << setprecision(10) << ans << endl;
     return 0;
 }
