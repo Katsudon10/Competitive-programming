@@ -94,32 +94,16 @@ int main(){
         rep(j,k[i])cin >> a[i][j];
     }   
 
-    vector<int>v(n-2,0);
-    rep(i,2)v.push_back(1);
     double ans=0;
-    do{
-        int s=1;
+    rep(i,n)rep(j,i){
+        double cur=0;
         map<int,int>cnt;
-        int t=0;
-        bool flag=false;
-        rep(i,n){
-            if(v[i]==0)continue;
-            if(flag){
-                s*=k[i];
-                rep(j,k[i]){
-                    t+=cnt[a[i][j]];
-                }
-                chmax(ans,(double)t/s);
-            }else{
-                flag=true;
-                s=k[i];
-                rep(j,k[i]){
-                    cnt[a[i][j]]++;
-                }
-            }
-            
-        }
-    }while(next_permutation(ALL(v)));
+        for(int v:a[i])cnt[v]++;
+        for(int v:a[j])cur+=cnt[v];
+        cur/=k[i];
+        cur/=k[j];
+        chmax(ans,cur);
+    }
     cout << fixed << setprecision(10) << ans << endl;
     return 0;
 }
