@@ -84,35 +84,24 @@ vector<int>dys={0,1,0,-1};
 //A[i].erase(unique(ALL(A[i])),A[i].end());
 
 int main(){
-    int n;
-    cin >> n;
-    vector<bool>prime(n+1,true);
-    prime[0]=prime[1]=false;
-    for(int i=2;i<=n;i++){
-        if(!prime[i])continue;
-        for(int j=2*i;j<=n;j+=i){
-            prime[j]=false;
-        }
-    }
-
-    vector<int>cnt(n+1,0);
-    for(int i=2;i<=n;i++){
-        int num=i;
-        for(int j=2;j<=n;j++){
-            if(prime[j]){
-                while(num%j==0){
-                    cnt[j]++;
-                    num/=j;
-                }
-            }
-        }
-    }
-
-    const int mod=1e9+7;
-    ll ans=1;
-    for(int i=2;i<=n;i++){
-        if(cnt[i]>0)ans=ans*(cnt[i]+1)%mod;
-    }
+    int sx,sy,tx,ty;
+    cin >> sx >> sy >> tx >> ty;
+    
+    int dx=tx-sx,dy=ty-sy;
+    string ans;
+    rep(i,dx)ans+="R";
+    rep(i,dy)ans+="U";
+    rep(i,dx)ans+="L";
+    rep(i,dy)ans+="D";
+    
+    ans+="D";
+    rep(i,dx+1)ans+="R";
+    rep(i,dy+1)ans+="U";
+    ans+="L";
+    ans+="U";
+    rep(i,dx+1)ans+="L";
+    rep(i,dy+1)ans+="D";
+    ans+="R";
     
     cout << ans << endl;
     return 0;
